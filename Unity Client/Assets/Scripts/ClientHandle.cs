@@ -15,4 +15,14 @@ public class ClientHandle : MonoBehaviour
         // Send received packet
         ClientSend.WelcomeReceived();
     }
+
+    public static void SpawnPlayer(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        string _username = _packet.ReadString();
+        Vector3 _position = _packet.ReadVector3();
+        Quaternion _quaternion = _packet.ReadQuaternion();
+
+        GameManager.instance.SpawnPlayer(_id, _username, _position, _quaternion);
+    }
 }

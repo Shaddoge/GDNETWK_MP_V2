@@ -9,7 +9,7 @@ public class ClientSend : MonoBehaviour
         _packet.WriteLength();
         Client.instance.tcp.SendData(_packet);
     }
-
+        
     #region Packets
     public static void WelcomeReceived()
     {

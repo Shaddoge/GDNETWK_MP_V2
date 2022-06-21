@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using System.Numerics;
 
 namespace GameServer
 {
@@ -10,6 +11,7 @@ namespace GameServer
     {
         public static int dataBufferSize = 4096;
         public int id;
+        public Player player;
         public TCP tcp;
         public Client(int _clientId)
         {
@@ -87,33 +89,11 @@ namespace GameServer
             }
 
             private bool HandleData(byte[] _data)
-        {
-            int _packetLength = 0;
-
-            receivedData.SetBytes(_data);
-
-            if (receivedData.UnreadLength() >= 4)
             {
-                _packetLength = receivedData.ReadInt();
-                if(_packetLength <= 0)
-                {
-                    return true;
-                }
-            }
+                int _packetLength = 0;
 
-            while (_packetLength > 0 && _packetLength <= receivedData.UnreadLength())
-            {
-                byte[] _packetBytes = receivedData.ReadBytes(_packetLength);
-                ThreadManager.ExecuteOnMainThread(() =>
-                {
-                    using (Packet _packet = new Packet(_packetBytes))
-                    {
-                        int _packetId = _packet.ReadInt();
-                        Server.packetHandlers[_packetId](id, _packet);
-                    }
-                });
+                receivedData.SetBytes(_data);
 
-                _packetLength = 0;
                 if (receivedData.UnreadLength() >= 4)
                 {
                     _packetLength = receivedData.ReadInt();
@@ -122,16 +102,59 @@ namespace GameServer
                         return true;
                     }
                 }
-            }
-            
-            if (_packetLength <= 1)
-            {
-                return true;
-            }
 
-            return false;
+                while (_packetLength > 0 && _packetLength <= receivedData.UnreadLength())
+                {
+                    byte[] _packetBytes = receivedData.ReadBytes(_packetLength);
+                    ThreadManager.ExecuteOnMainThread(() =>
+                    {
+                        using (Packet _packet = new Packet(_packetBytes))
+                        {
+                            int _packetId = _packet.ReadInt();
+                            Server.packetHandlers[_packetId](id, _packet);
+                        }
+                    });
+
+                    _packetLength = 0;
+                    if (receivedData.UnreadLength() >= 4)
+                    {
+                        _packetLength = receivedData.ReadInt();
+                        if(_packetLength <= 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            
+                if (_packetLength <= 1)
+                {
+                    return true;
+                }
+
+                return false;
+            }
         }
 
+        public void SendIntoGame(string _playerName)
+        {
+            player = new Player(id, _playerName, Vector3.Zero);
+
+            foreach (Client _client in Server.clients.Values)
+            {
+                // Make sure player is not null
+                if (_client.player == null) continue;
+                // Send data of players beside the current player
+                if (_client.id == id) continue;
+
+                ServerSend.SpawnPlayer(id, _client.player);
+            }
+
+            foreach (Client _client in Server.clients.Values)
+            {
+                // Make sure player is not null
+                if (_client.player == null) continue;
+                ServerSend.SpawnPlayer(_client.id, player);
+            }
         }
     }
 }

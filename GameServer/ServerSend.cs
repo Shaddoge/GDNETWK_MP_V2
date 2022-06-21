@@ -22,6 +22,7 @@ namespace GameServer
             }
         }
 
+        #region Packets
         private static void SendTCPDataToAll(int _exceptClient, Packet _packet)
         {
             _packet.WriteLength();
@@ -45,5 +46,19 @@ namespace GameServer
                 SendTCPData(_toClient, _packet);
             }
         }
+
+        public static void SpawnPlayer(int _toClient, Player _player)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.spawnPlayer))
+            {
+                _packet.Write(_player.id);
+                _packet.Write(_player.username);
+                _packet.Write(_player.position);
+                _packet.Write(_player.rotation);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
+        #endregion
     }
 }
