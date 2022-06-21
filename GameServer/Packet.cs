@@ -316,6 +316,8 @@ namespace GameServer
             {
                 int _length = ReadInt(); // Get the length of the string
                 string _value = Encoding.ASCII.GetString(readableBuffer, readPos, _length); // Convert the bytes to a string
+                Console.WriteLine($"Int Length: {_length}");
+                Console.WriteLine($"Player name: {_value}");
                 if (_moveReadPos && _value.Length > 0)
                 {
                     // If _moveReadPos is true string is not empty

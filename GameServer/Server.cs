@@ -15,7 +15,7 @@ namespace GameServer
         public static Dictionary<int, PacketHandler> packetHandlers;
 
         private static TcpListener tcpListener;
-        private static UdpClient udpListener;
+        
         public static void Start(int _maxPlayers, int _port)
         {
             MaxPlayers = _maxPlayers;

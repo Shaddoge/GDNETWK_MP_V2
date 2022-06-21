@@ -6,16 +6,17 @@ namespace GameServer
 {
     class ServerSend
     {
-        private static  void SendTCPData(int _toClient, Packet _packet)
+        private static void SendTCPData(int _toClient, Packet _packet)
         {
             _packet.WriteLength();
             Server.clients[_toClient].tcp.SendData(_packet);
         }
+
         private static void SendTCPDataToAll(Packet _packet)
         {
             _packet.WriteLength();
 
-            for (int i = 0; i < Server.MaxPlayers; i++)
+            for (int i = 1; i <= Server.MaxPlayers; i++)
             {
                 Server.clients[i].tcp.SendData(_packet);
             }
@@ -25,9 +26,9 @@ namespace GameServer
         {
             _packet.WriteLength();
 
-            for (int i = 0; i < Server.MaxPlayers; i++)
+            for (int i = 1; i <= Server.MaxPlayers; i++)
             {
-                if(i != _exceptClient)
+                if (i != _exceptClient)
                 {
                     Server.clients[i].tcp.SendData(_packet);
                 }
