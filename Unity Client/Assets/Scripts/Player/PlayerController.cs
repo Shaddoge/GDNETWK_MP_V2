@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void FixedUpdate()
     {
-        
+        SendInputToServer();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SendInputToServer()
     {
-        
+        bool[] _inputs = new bool[]
+        {
+            Input.GetKey(KeyCode.UpArrow),
+            Input.GetKey(KeyCode.DownArrow),
+            Input.GetKey(KeyCode.LeftArrow),
+            Input.GetKey(KeyCode.RightArrow),
+        };
+
+        ClientSend.PlayerMovement(_inputs);
     }
 }
