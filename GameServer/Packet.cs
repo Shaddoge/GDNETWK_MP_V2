@@ -7,15 +7,13 @@ namespace GameServer
     /// <summary>Sent from server to client.</summary>
     public enum ServerPackets
     {
-        welcome = 1,
-        udpTest = 2
+        welcome = 1
     }
 
     /// <summary>Sent from client to server.</summary>
     public enum ClientPackets
     {
-        welcomeReceived = 1,
-        udpTestReceived = 2
+        welcomeReceived = 1
     }
 
     public class Packet : IDisposable
