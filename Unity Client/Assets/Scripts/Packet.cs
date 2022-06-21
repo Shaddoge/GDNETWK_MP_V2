@@ -8,14 +8,14 @@ using UnityEngine;
 public enum ServerPackets
 {
     welcome = 1,
-    udpTest = 2
+    udpTest
 }
 
 /// <summary>Sent from client to server.</summary>
 public enum ClientPackets
 {
     welcomeReceived = 1,
-    udpTestReceived = 2
+    udpTestReceived
 }
 
 public class Packet : IDisposable
