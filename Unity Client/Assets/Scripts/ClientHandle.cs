@@ -18,25 +18,28 @@ public class ClientHandle : MonoBehaviour
 
     public static void SpawnPlayer(Packet _packet)
     {
-        Debug.Log("SPAWN");
         int _id = _packet.ReadInt();
         string _username = _packet.ReadString();
         Vector3 _position = _packet.ReadVector3();
-        Quaternion _quaternion = _packet.ReadQuaternion();
-
-        GameManager.instance.SpawnPlayer(_id, _username, _position, _quaternion);
+        Quaternion _rotation = _packet.ReadQuaternion();
+        Debug.Log("SPAWN PLAYER");
+        GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
     }
 
     public static void PlayerPosition(Packet _packet)
     {
+        if(GameManager.players.Count == 0) return;
+        //if (!Client.instance.IsConnected) return;
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
-        Debug.Log(_position);
+        //Debug.Log(GameManager.players.Count);
         GameManager.players[_id].transform.position = _position;
     }
 
     public static void PlayerRotation(Packet _packet)
     {
+        if(GameManager.players.Count == 0) return;
+        //if (!Client.instance.IsConnected) return;
         int _id = _packet.ReadInt();
         Quaternion _rotation = _packet.ReadQuaternion();
 

@@ -14,7 +14,8 @@ namespace GameServer
         public Quaternion rotation;
 
         private const float accelerationSpeed = 1f / Constants.TICKS_PER_SEC;
-        private const float maxSpeed = 5f / Constants.TICKS_PER_SEC;
+        private const float maxSpeed = 10f / Constants.TICKS_PER_SEC;
+        private const float decelerationSpeed = 0.1f / Constants.TICKS_PER_SEC;
         private float currentSpeed = 0f;
 
         private bool[] inputs;
@@ -58,8 +59,24 @@ namespace GameServer
             Vector3 _right = Vector3.Normalize(Vector3.Cross(_forward, new Vector3(0, 1, 0)));
 
             Vector3 _moveDirection = _right * _inputDirection.X + _forward * _inputDirection.Y;
+
+            if(currentSpeed > 0)
+            {
+                currentSpeed -= decelerationSpeed;
+                currentSpeed = Math.Clamp(currentSpeed, 0, maxSpeed);
+            }
+                
+            else if(currentSpeed < 0)
+            {
+                currentSpeed += decelerationSpeed;
+                currentSpeed = Math.Clamp(currentSpeed, -maxSpeed, 0);
+            }
+                
             currentSpeed += _inputDirection.Y * accelerationSpeed;
-            position += _moveDirection * maxSpeed;
+            currentSpeed = Math.Clamp(currentSpeed, -maxSpeed, maxSpeed);
+
+            Console.WriteLine(currentSpeed);
+            position += _forward * currentSpeed;
 
             ServerSend.PlayerPosition(this);
             ServerSend.PlayerRotation(this);
