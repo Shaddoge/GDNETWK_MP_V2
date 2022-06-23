@@ -1025,7 +1025,7 @@ GameObject:
   - component: {fileID: 1259307502746749497}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1059,6 +1059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   username: 
+  nextCheckpoint: {fileID: 0}
   wheelColliders:
   - {fileID: 4033808454610081487}
   - {fileID: 9137891260257828496}

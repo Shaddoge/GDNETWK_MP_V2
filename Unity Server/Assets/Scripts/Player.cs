@@ -7,10 +7,12 @@ public class Player : MonoBehaviour
 {
     public int id;
     public string username;
-    
+    public Checkpoint nextCheckpoint;
+    public int placement = 1;
+
     // Input
     private bool[] inputs;
-
+    
     // Current Values
     private bool isBreaking;
     private float currentBreakForce = 0f;
@@ -30,6 +32,7 @@ public class Player : MonoBehaviour
         this.username = _username;
 
         this.inputs = new bool[5];
+        this.nextCheckpoint = CheckpointHandler.GetFirstCheckpoint();
     }
 
     public void FixedUpdate()
