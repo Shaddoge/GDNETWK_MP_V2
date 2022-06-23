@@ -28,18 +28,19 @@ public class NetworkManager : MonoBehaviour
     private void Start()
     {
         QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 64;
+        Application.targetFrameRate = 128;
 
-        #if UNITY_EDITOR
-        Debug.Log("Build project to make the server work");
-        #else
+
         Server.Start(maxPlayers, port);
-        #endif
+    }
+
+    private void OnApplicationQuit()
+    {
+        Server.Stop();
     }
 
     public Player InstantiatePlayer()
     {
-        Debug.Log("Instantiating");
-        return Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<Player>();
+        return Instantiate(playerPrefab, new Vector3(0f, 0.5f, 0f), Quaternion.identity).GetComponent<Player>();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,32 +7,36 @@ public class Player : MonoBehaviour
 {
     public int id;
     public string username;
-
-    // Acceleration
-    private const float accelerationSpeed = 0.5f / Constants.TICKS_PER_SEC;
-    private const float decelerationSpeed = 0.1f / Constants.TICKS_PER_SEC;
-    private const float topSpeed = 10f / Constants.TICKS_PER_SEC;
-    private float currentSpeed = 0f;
-
-    // Steering
-    private const float turnSpeed = 0.2f / Constants.TICKS_PER_SEC;
-    private const float turnReduction = 0.05f / Constants.TICKS_PER_SEC;
-    private const float maxTurnSpeed = 1.0f / Constants.TICKS_PER_SEC;
-    private float currentTurnSpeed = 0f;
-
+    
+    // Input
     private bool[] inputs;
+
+    // Current Values
+    private bool isBreaking;
+    private float currentBreakForce = 0f;
+    private float currentSteerAngle = 0f;
+    
+    // Motor force
+    private const float motorForce = 800f;
+    private const float breakForce = 1600f;
+    private const float maxSteerAngle = 45f;
+
+    [SerializeField] private WheelCollider[] wheelColliders = new WheelCollider[4];
+    [SerializeField] private Transform[] wheels = new Transform[4];
 
     public void Initialize(int _id, string _username)
     {
         this.id = _id;
         this.username = _username;
 
-        this.inputs = new bool[4];
+        this.inputs = new bool[5];
     }
 
     public void FixedUpdate()
     {
         Vector2 _inputDirection = Vector2.zero;
+        isBreaking = false;
+
         if(inputs[0])
         {
             _inputDirection.y += 1;
@@ -48,64 +53,64 @@ public class Player : MonoBehaviour
         {
             _inputDirection.x += 1;
         }
-
-        Steer(_inputDirection.x);
-        Accelerate(_inputDirection.y);
-    }
-
-    private void Steer(float _direction)
-    {
-        if (Mathf.Abs(currentSpeed) <= topSpeed * 0.025f) return;
-
-        Quaternion newRot = Quaternion.identity;
-        if (currentTurnSpeed > 0)
+        if(inputs[4])
         {
-            currentTurnSpeed -= turnReduction;
-            currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, maxTurnSpeed);
+            isBreaking = true;
         }
-        else if (currentTurnSpeed < 0)
-        {
-            currentTurnSpeed += turnReduction;
-            currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, -maxTurnSpeed, 0);
-        }
-        //Console.WriteLine(_direction);
-        currentTurnSpeed += _direction * turnSpeed * ((topSpeed * 4 * Mathf.Sign(currentSpeed)) - currentSpeed);
-        currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, -maxTurnSpeed, maxTurnSpeed);
-            
-        newRot.y = currentTurnSpeed;
 
-        transform.rotation *= newRot;
+        HandleSteering(_inputDirection.x);
+        HandleMotor(_inputDirection.y);
+        UpdateWheels();
+
+        ServerSend.PlayerPosition(this);
         ServerSend.PlayerRotation(this);
     }
 
-    private void Accelerate(float _direction)
+    private void HandleMotor(float _direction)
     {
-        //Vector3 _moveDirection = transform.right * _inputDirection.X + transform.forward * _inputDirection.Y;
+        // Front Wheels
+        wheelColliders[0].motorTorque = _direction * motorForce;
+        wheelColliders[1].motorTorque = _direction * motorForce;
+        // Rear Wheels
+        //wheelColliders[2].motorTorque = _direction * motorForce;
+        //wheelColliders[3].motorTorque = _direction * motorForce;
 
-        if (currentSpeed > 0)
-        {
-            currentSpeed -= decelerationSpeed;
-            currentSpeed = Mathf.Clamp(currentSpeed, 0, topSpeed);
-        }
-                
-        else if (currentSpeed < 0)
-        {
-            currentSpeed += decelerationSpeed;
-            currentSpeed = Mathf.Clamp(currentSpeed, -topSpeed, 0);
-        }
-                
-        currentSpeed += _direction * accelerationSpeed;
-        currentSpeed = Mathf.Clamp(currentSpeed, -topSpeed, topSpeed);
-
-        //Console.WriteLine(currentSpeed);
-        transform.position += transform.forward * currentSpeed;
-
-        ServerSend.PlayerPosition(this);
+        currentBreakForce = isBreaking ? breakForce : 0f;
+        
+        ApplyBreak();
     }
 
-    public void SetInput(bool[] _inputs, Quaternion _rotation)
+    private void ApplyBreak()
+    {
+        foreach(WheelCollider collider in wheelColliders)
+        {
+            collider.brakeTorque = currentBreakForce;
+        }
+    }
+
+    private void HandleSteering(float _direction)
+    {
+        currentSteerAngle = maxSteerAngle * _direction;
+        wheelColliders[0].steerAngle = currentSteerAngle;
+        wheelColliders[1].steerAngle = currentSteerAngle;
+    }
+
+    private void UpdateWheels()
+    {
+        for (int i = 0; i < wheels.Length; i++)
+        {
+            Vector3 pos;
+            Quaternion rot;
+
+            wheelColliders[i].GetWorldPose(out pos, out rot);
+            wheels[i].position = pos;
+            wheels[i].rotation = rot;
+        }
+    }
+
+    public void SetInput(bool[] _inputs)
     {
         this.inputs = _inputs;
-        transform.rotation = _rotation;
+        //transform.rotation = _rotation;
     }
 }
