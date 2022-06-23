@@ -9,8 +9,12 @@ public class NetworkManager : MonoBehaviour
     [SerializeField] private int maxPlayers = 4;
     [SerializeField] private int port = 8888;
 
+    [Header("Spawn Point")]
+    [SerializeField] private Transform[] spawnPoints;
+
     [Header("Prefabs")]
     [SerializeField] private GameObject playerPrefab;
+    
     
     private void Awake()
     {
@@ -39,8 +43,10 @@ public class NetworkManager : MonoBehaviour
         Server.Stop();
     }
 
-    public Player InstantiatePlayer()
+    public Player InstantiatePlayer(int id)
     {
-        return Instantiate(playerPrefab, new Vector3(0f, 0.5f, 0f), Quaternion.identity).GetComponent<Player>();
+        Debug.Log(id);
+
+        return Instantiate(playerPrefab, spawnPoints[id-1].position, Quaternion.identity).GetComponent<Player>();
     }
 }

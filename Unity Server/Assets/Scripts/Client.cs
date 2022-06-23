@@ -149,7 +149,7 @@ public class Client
 
     public void SendIntoGame(string _playerName)
     {
-        player = NetworkManager.instance.InstantiatePlayer();
+        player = NetworkManager.instance.InstantiatePlayer(id);
         player.Initialize(id, _playerName);
 
         foreach (Client _client in Server.clients.Values)
