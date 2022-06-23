@@ -180,7 +180,6 @@ public class Client
             player = null;
         });
 
-        UnityEngine.Object.Destroy(player.gameObject);
         player = null;
         tcp.Disconnect();
     }
