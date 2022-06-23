@@ -391,8 +391,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxPlayers: 4
   port: 8888
+  spawnPoints:
+  - {fileID: 76851330}
+  - {fileID: 667232650}
+  - {fileID: 1732197488}
+  - {fileID: 1751769653}
   playerPrefab: {fileID: 5274327606167894623, guid: c5932eed7c414ee4182331737a4d4761, type: 3}
-  spawnPoints: []
 --- !u!4 &1006704283
 Transform:
   m_ObjectHideFlags: 0
@@ -543,7 +547,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605709829}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}

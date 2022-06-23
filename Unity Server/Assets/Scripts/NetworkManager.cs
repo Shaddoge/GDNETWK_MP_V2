@@ -43,10 +43,8 @@ public class NetworkManager : MonoBehaviour
         Server.Stop();
     }
 
-    public Player InstantiatePlayer(int id)
+    public Player InstantiatePlayer(int _playerId)
     {
-        Debug.Log(id);
-
-        return Instantiate(playerPrefab, spawnPoints[id-1].position, Quaternion.identity).GetComponent<Player>();
+        return Instantiate(playerPrefab, spawnPoints[_playerId-1].position, Quaternion.identity).GetComponent<Player>();
     }
 }

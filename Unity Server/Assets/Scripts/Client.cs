@@ -151,7 +151,7 @@ public class Client
     {
         player = NetworkManager.instance.InstantiatePlayer(id);
         player.Initialize(id, _playerName);
-
+        Debug.Log(player);
         foreach (Client _client in Server.clients.Values)
         {
             // Make sure player is not null
@@ -176,11 +176,13 @@ public class Client
 
         ThreadManager.ExecuteOnMainThread(() =>
         {
+            Debug.Log(player);
             UnityEngine.Object.Destroy(player.gameObject);
             player = null;
         });
 
-        player = null;
         tcp.Disconnect();
+
+        ServerSend.PlayerDisconnected(id);
     }
 }
