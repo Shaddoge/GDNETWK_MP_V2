@@ -5,79 +5,79 @@ using UnityEngine;
 public class ServerSend
 {
     private static void SendTCPData(int _toClient, Packet _packet)
+    {
+        _packet.WriteLength();
+        Server.clients[_toClient].tcp.SendData(_packet);
+    }
+
+    private static void SendTCPDataToAll(Packet _packet)
+    {
+        _packet.WriteLength();
+
+        for (int i = 1; i <= Server.MaxPlayers; i++)
         {
-            _packet.WriteLength();
-            Server.clients[_toClient].tcp.SendData(_packet);
+            Server.clients[i].tcp.SendData(_packet);
         }
+    }
 
-        private static void SendTCPDataToAll(Packet _packet)
+    #region Packets
+    private static void SendTCPDataToAll(int _exceptClient, Packet _packet)
+    {
+        _packet.WriteLength();
+
+        for (int i = 1; i <= Server.MaxPlayers; i++)
         {
-            _packet.WriteLength();
-
-            for (int i = 1; i <= Server.MaxPlayers; i++)
+            if (i != _exceptClient)
             {
                 Server.clients[i].tcp.SendData(_packet);
             }
         }
+    }
 
-        #region Packets
-        private static void SendTCPDataToAll(int _exceptClient, Packet _packet)
+    public static void Welcome(int _toClient, string _msg)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.welcome))
         {
-            _packet.WriteLength();
+            _packet.Write(_msg);
+            _packet.Write(_toClient);
 
-            for (int i = 1; i <= Server.MaxPlayers; i++)
-            {
-                if (i != _exceptClient)
-                {
-                    Server.clients[i].tcp.SendData(_packet);
-                }
-            }
+            SendTCPData(_toClient, _packet);
         }
+    }
 
-        public static void Welcome(int _toClient, string _msg)
+    public static void SpawnPlayer(int _toClient, Player _player)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.spawnPlayer))
         {
-            using (Packet _packet = new Packet((int)ServerPackets.welcome))
-            {
-                _packet.Write(_msg);
-                _packet.Write(_toClient);
+            _packet.Write(_player.id);
+            _packet.Write(_player.username);
+            _packet.Write(_player.transform.position);
+            _packet.Write(_player.transform.rotation);
 
-                SendTCPData(_toClient, _packet);
-            }
+            SendTCPData(_toClient, _packet);
         }
+    }
 
-        public static void SpawnPlayer(int _toClient, Player _player)
+    public static void PlayerPosition(Player _player)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.playerPosition))
         {
-            using (Packet _packet = new Packet((int)ServerPackets.spawnPlayer))
-            {
-                _packet.Write(_player.id);
-                _packet.Write(_player.username);
-                _packet.Write(_player.transform.position);
-                _packet.Write(_player.transform.rotation);
+            _packet.Write(_player.id);
+            _packet.Write(_player.transform.position);
 
-                SendTCPData(_toClient, _packet);
-            }
+            SendTCPDataToAll(_packet);
         }
+    }
 
-        public static void PlayerPosition(Player _player)
+    public static void PlayerRotation(Player _player)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.playerRotation))
         {
-            using (Packet _packet = new Packet((int)ServerPackets.playerPosition))
-            {
-                _packet.Write(_player.id);
-                _packet.Write(_player.transform.position);
+            _packet.Write(_player.id);
+            _packet.Write(_player.transform.rotation);
 
-                SendTCPDataToAll(_packet);
-            }
+            SendTCPDataToAll(_packet);
         }
-
-        public static void PlayerRotation(Player _player)
-        {
-            using (Packet _packet = new Packet((int)ServerPackets.playerRotation))
-            {
-                _packet.Write(_player.id);
-                _packet.Write(_player.transform.rotation);
-
-                SendTCPDataToAll(_packet);
-            }
-        }
-        #endregion
+    }
+    #endregion
 }

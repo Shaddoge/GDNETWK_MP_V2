@@ -8,15 +8,15 @@ public class Player : MonoBehaviour
     public string username;
 
     // Acceleration
-    private const float accelerationSpeed = 1f / Constants.TICKS_PER_SEC;
+    private const float accelerationSpeed = 0.5f / Constants.TICKS_PER_SEC;
     private const float decelerationSpeed = 0.1f / Constants.TICKS_PER_SEC;
     private const float topSpeed = 10f / Constants.TICKS_PER_SEC;
     private float currentSpeed = 0f;
 
     // Steering
-    private const float turnSpeed = 0.5f / Constants.TICKS_PER_SEC;
-    private const float turnReduction = 0.1f / Constants.TICKS_PER_SEC;
-    private const float maxTurnSpeed = 1.5f / Constants.TICKS_PER_SEC;
+    private const float turnSpeed = 0.2f / Constants.TICKS_PER_SEC;
+    private const float turnReduction = 0.05f / Constants.TICKS_PER_SEC;
+    private const float maxTurnSpeed = 1.0f / Constants.TICKS_PER_SEC;
     private float currentTurnSpeed = 0f;
 
     private bool[] inputs;
@@ -55,6 +55,8 @@ public class Player : MonoBehaviour
 
     private void Steer(float _direction)
     {
+        if (Mathf.Abs(currentSpeed) <= topSpeed * 0.025f) return;
+
         Quaternion newRot = Quaternion.identity;
         if (currentTurnSpeed > 0)
         {
@@ -67,10 +69,10 @@ public class Player : MonoBehaviour
             currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, -maxTurnSpeed, 0);
         }
         //Console.WriteLine(_direction);
-        currentTurnSpeed += _direction * turnSpeed;
+        currentTurnSpeed += _direction * turnSpeed * ((topSpeed * 4 * Mathf.Sign(currentSpeed)) - currentSpeed);
         currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, -maxTurnSpeed, maxTurnSpeed);
             
-        newRot.y = currentTurnSpeed * (currentSpeed * 10);
+        newRot.y = currentTurnSpeed;
 
         transform.rotation *= newRot;
         ServerSend.PlayerRotation(this);
