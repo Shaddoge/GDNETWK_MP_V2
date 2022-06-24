@@ -17,14 +17,17 @@ public class GameManager : MonoBehaviour
 
     public void FixedUpdate()
     {
-        startGame = true;
-        foreach (var player in players)
+        if (players.Count >= 2)
         {
-            if (!player.Value.isReady) startGame = false;
+            startGame = true;
+            foreach (var player in players)
+            {
+                if (!player.Value.isReady) startGame = false;
+            }
         }
 
         // For testing only
-        if (startGame && players.Count >= 1) closeLobby = true;
+        if (startGame && players.Count >= 2) closeLobby = true;
     }
 
     private void Awake()

@@ -29,7 +29,10 @@ public class UIManager : MonoBehaviour
         mainMenu.SetActive(false);
         usernameField.interactable = false;
         Client.instance.ConnectToServer();
-        LobbyPanel.SetActive(true);
+        if(LobbyPanel != null)
+        {
+            LobbyPanel.SetActive(true);
+        }
     }
 
 }

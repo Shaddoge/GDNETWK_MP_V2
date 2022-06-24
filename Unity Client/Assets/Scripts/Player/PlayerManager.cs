@@ -6,6 +6,7 @@ public class PlayerManager : MonoBehaviour
 {
     public int id;
     public string username;
+    public bool isReady = false;
 
     public void LerpPos(Vector3 _newPosition)
     {
