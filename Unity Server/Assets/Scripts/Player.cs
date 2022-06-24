@@ -21,9 +21,9 @@ public class Player : MonoBehaviour
     // Motor force
     private const float motorForce = 2000f;
     private const float breakForce = 4000f;
-    private const float maxSteerAngle = 45f;
+    private const float maxSteerAngle = 30f;
 
-    [SerializeField] private WheelCollider[] wheelColliders = new WheelCollider[4];
+    public WheelCollider[] wheelColliders = new WheelCollider[4];
     [SerializeField] private Transform[] wheels = new Transform[4];
 
     // Lobby
@@ -72,6 +72,7 @@ public class Player : MonoBehaviour
         ServerSend.PlayerPosition(this);
         ServerSend.PlayerRotation(this);
         ServerSend.PlayerState(this);
+        ServerSend.PlayerWheels(this);
     }
 
     private void HandleMotor(float _direction)
@@ -82,7 +83,6 @@ public class Player : MonoBehaviour
         // Rear Wheels
         //wheelColliders[2].motorTorque = _direction * motorForce;
         //wheelColliders[3].motorTorque = _direction * motorForce;
-
         currentBreakForce = isBreaking ? breakForce : 0f;
         
         ApplyBreak();

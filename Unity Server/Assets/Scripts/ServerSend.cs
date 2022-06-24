@@ -80,6 +80,24 @@ public class ServerSend
         }
     }
 
+    public static void PlayerWheels(Player _player)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.playerWheels))
+        {
+            _packet.Write(_player.id);
+            foreach(WheelCollider wheel in _player.wheelColliders)
+            {
+                Vector3 pos;
+                Quaternion rot;
+
+                wheel.GetWorldPose(out pos, out rot);
+                _packet.Write(pos);
+                _packet.Write(rot);
+            }
+            SendTCPDataToAll(_packet);
+        }
+    }
+
     public static void PlayerState(Player _player)
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerState))
