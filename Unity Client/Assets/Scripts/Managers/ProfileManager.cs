@@ -53,7 +53,7 @@ public class ProfileManager : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.closeLobby)
+        if (GameManager.instance.startGame)
         {
             lobbyPanel.SetActive(false);
         }

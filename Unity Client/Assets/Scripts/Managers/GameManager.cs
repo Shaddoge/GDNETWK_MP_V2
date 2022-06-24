@@ -9,8 +9,7 @@ public class GameManager : MonoBehaviour
 
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
     public bool startGame = false;
-    public bool closeLobby = false;
-    public int numOfPlayers = 1;
+    private int numOfReady = 0;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject localPlayerPrefab;
@@ -18,17 +17,22 @@ public class GameManager : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (players.Count >= numOfPlayers)
+        foreach (var player in players)
         {
-            startGame = true;
-            foreach (var player in players)
-            {
-                if (!player.Value.isReady) startGame = false;
-            }
+            if (player.Value.isReady) numOfReady++;
         }
 
-        // For testing only
-        if (startGame && players.Count >= numOfPlayers) closeLobby = true;
+        if (players.Count != 0 && players.Count == numOfReady)
+        {
+            startGame = true;
+        }
+
+        else
+        {
+            startGame = false;
+        }
+
+        numOfReady = 0;
     }
 
     private void Awake()
