@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
     public bool startGame = false;
     public bool closeLobby = false;
+    public int numOfPlayers = 1;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject localPlayerPrefab;
@@ -17,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (players.Count >= 2)
+        if (players.Count >= numOfPlayers)
         {
             startGame = true;
             foreach (var player in players)
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
         }
 
         // For testing only
-        if (startGame && players.Count >= 2) closeLobby = true;
+        if (startGame && players.Count >= numOfPlayers) closeLobby = true;
     }
 
     private void Awake()
