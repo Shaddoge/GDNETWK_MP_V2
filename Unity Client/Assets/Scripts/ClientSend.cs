@@ -35,5 +35,15 @@ public class ClientSend : MonoBehaviour
             SendTCPData(_packet);
         }
     }
+
+    public static void PlayerReady(bool _isReady)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.playerReady))
+        {
+            _packet.Write(_isReady);
+
+            SendTCPData(_packet);
+        }
+    }
     #endregion
 }
