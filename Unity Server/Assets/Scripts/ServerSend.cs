@@ -119,5 +119,15 @@ public class ServerSend
         }
     }
 
+    public static void PlayerFinished(int _playerId)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.playerFinished))
+        {
+            _packet.Write(_playerId);
+
+            SendTCPDataToAll(_packet);
+        }
+    }
+
     #endregion
 }

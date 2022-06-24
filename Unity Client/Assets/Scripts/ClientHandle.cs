@@ -78,12 +78,18 @@ public class ClientHandle : MonoBehaviour
         GameManager.players[_id].isReady = _isReady;
     }
 
-    public static void PlayerDisconnected(Packet  _packet)
+    public static void PlayerDisconnected(Packet _packet)
     {
         int _id = _packet.ReadInt();
         
         Destroy(GameManager.players[_id].gameObject);
         GameManager.players.Remove(_id);
         ProfileManager.instance.RemoveProfile(_id);
+    }
+
+    public static void PlayerFinished(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Debug.Log($"{GameManager.players[_id].username} finished!");
     }
 }

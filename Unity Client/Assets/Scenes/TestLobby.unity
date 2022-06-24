@@ -299,8 +299,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117262883}
-  m_LocalRotation: {x: 0.12218327, y: 0.000000017077465, z: -0.0000000021023319, w: 0.9925076}
-  m_LocalPosition: {x: 0, y: 1.25, z: -4}
+  m_LocalRotation: {x: 0.16018224, y: -0.000000008493529, z: 0.0000000013783102, w: 0.9870875}
+  m_LocalPosition: {x: 0, y: 1, z: -2.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1327,6 +1327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startGame: 0
   closeLobby: 0
+  numOfPlayers: 1
   localPlayerPrefab: {fileID: 3558782148265988035, guid: 55cf155102ef509478adba1462beb8ab, type: 3}
   playerPrefab: {fileID: 3558782148265988035, guid: 96d4bdb47125ad04fb8ec083028b8fb6, type: 3}
 --- !u!4 &1961527722
@@ -1437,6 +1438,14 @@ PrefabInstance:
     - target: {fileID: 1973933942642652487, guid: d3e8080c029f91c4eaa7a0becde7e05d, type: 3}
       propertyPath: m_Name
       value: LobbyPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1973933942642652487, guid: d3e8080c029f91c4eaa7a0becde7e05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1973933942869810609, guid: d3e8080c029f91c4eaa7a0becde7e05d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3e8080c029f91c4eaa7a0becde7e05d, type: 3}
