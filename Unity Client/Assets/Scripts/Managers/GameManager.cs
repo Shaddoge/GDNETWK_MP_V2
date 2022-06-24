@@ -63,8 +63,7 @@ public class GameManager : MonoBehaviour
         AddProfile(_id, _username);
 
         PlayerManager spawnedPlayer = _player.GetComponent<PlayerManager>();
-        spawnedPlayer.id = _id;
-        spawnedPlayer.username = _username;
+        spawnedPlayer.Initialize(_id, _username);
         players.Add(_id, spawnedPlayer);
     }
 
