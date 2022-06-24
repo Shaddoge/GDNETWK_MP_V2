@@ -31,9 +31,11 @@ public class ClientHandle : MonoBehaviour
         if(GameManager.players.Count == 0) return;
         //if (!Client.instance.IsConnected) return;
         int _id = _packet.ReadInt();
-        Vector3 _position = _packet.ReadVector3();
+        Vector3 _newPosition = _packet.ReadVector3();
         //Debug.Log(GameManager.players.Count);
-        GameManager.players[_id].transform.position = _position;
+
+        GameManager.players[_id].LerpPos(_newPosition);
+        //GameManager.players[_id].transform.position = _newPosition;
     }
 
     public static void PlayerRotation(Packet _packet)
@@ -41,9 +43,10 @@ public class ClientHandle : MonoBehaviour
         if(GameManager.players.Count == 0) return;
         //if (!Client.instance.IsConnected) return;
         int _id = _packet.ReadInt();
-        Quaternion _rotation = _packet.ReadQuaternion();
+        Quaternion _newRotation = _packet.ReadQuaternion();
 
-        GameManager.players[_id].transform.rotation = _rotation;
+        GameManager.players[_id].LerpRot(_newRotation);
+        //GameManager.players[_id].transform.rotation = _newRotation;
     }
 
     public static void PlayerDisconnected(Packet  _packet)
