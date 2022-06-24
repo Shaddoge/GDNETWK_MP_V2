@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
     private float currentSteerAngle = 0f;
     
     // Motor force
-    private const float motorForce = 800f;
-    private const float breakForce = 1600f;
+    private const float motorForce = 2000f;
+    private const float breakForce = 4000f;
     private const float maxSteerAngle = 45f;
 
     [SerializeField] private WheelCollider[] wheelColliders = new WheelCollider[4];
