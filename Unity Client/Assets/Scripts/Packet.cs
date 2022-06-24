@@ -11,6 +11,7 @@ using UnityEngine;
         spawnPlayer,
         playerPosition,
         playerRotation,
+        playerWheels,
         playerDisconnected,
         placementChanged,
         playerFinished,

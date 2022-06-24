@@ -25,6 +25,7 @@ public class Checkpoint : MonoBehaviour
                 // Finish line
                 // Send player id
                 Debug.Log("FINISH LINE!");
+                ServerSend.PlayerFinished(other.GetComponent<Player>().id);
             }
         }
     }

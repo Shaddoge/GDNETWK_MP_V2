@@ -22,6 +22,7 @@ public class ClientHandle : MonoBehaviour
         string _username = _packet.ReadString();
         Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
+        Debug.Log($"{_id} {_username} {_position} {_rotation}");
         Debug.Log("SPAWN PLAYER");
         GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
     }
@@ -49,13 +50,22 @@ public class ClientHandle : MonoBehaviour
         //GameManager.players[_id].transform.rotation = _newRotation;
     }
 
-    public static void PlayerDisconnected(Packet  _packet)
+    public static void PlayerWheels(Packet _packet)
     {
+        if(GameManager.players.Count == 0) return;
         int _id = _packet.ReadInt();
-        
-        Destroy(GameManager.players[_id].gameObject);
-        GameManager.players.Remove(_id);
-        ProfileManager.instance.RemoveProfile(_id);
+        List<Vector3> wheelPos = new List<Vector3>();
+        List<Quaternion> wheelRot = new List<Quaternion>();
+
+        for(int i = 0; i < 4; i++)
+        {
+            Vector3 pos = _packet.ReadVector3();
+            Quaternion rot = _packet.ReadQuaternion();
+            wheelPos.Add(pos);
+            wheelRot.Add(rot);
+        }
+
+        GameManager.players[_id].LerpWheels(wheelPos, wheelRot);
     }
 
     public static void PlayerState(Packet _packet)
@@ -66,5 +76,20 @@ public class ClientHandle : MonoBehaviour
         bool _isReady = _packet.ReadBool();
 
         GameManager.players[_id].isReady = _isReady;
+    }
+
+    public static void PlayerDisconnected(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        
+        Destroy(GameManager.players[_id].gameObject);
+        GameManager.players.Remove(_id);
+        ProfileManager.instance.RemoveProfile(_id);
+    }
+
+    public static void PlayerFinished(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Debug.Log($"{GameManager.players[_id].username} finished!");
     }
 }
