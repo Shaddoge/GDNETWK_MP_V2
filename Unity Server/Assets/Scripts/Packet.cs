@@ -14,13 +14,15 @@ public enum ServerPackets
     playerDisconnected,
     placementChanged,
     playerFinished,
+    playerState
 }
 
 /// <summary>Sent from client to server.</summary>
 public enum ClientPackets
 {
     welcomeReceived = 1,
-    playerMovement
+    playerMovement,
+    playerReady
 }
 
 public class Packet : IDisposable

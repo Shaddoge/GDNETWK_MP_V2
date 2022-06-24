@@ -26,11 +26,15 @@ public class Player : MonoBehaviour
     [SerializeField] private WheelCollider[] wheelColliders = new WheelCollider[4];
     [SerializeField] private Transform[] wheels = new Transform[4];
 
+    // Lobby
+    public bool isReady = false;
+
     public void Initialize(int _id, string _username)
     {
         this.id = _id;
         this.username = _username;
 
+        this.isReady = false;
         this.inputs = new bool[5];
         this.nextCheckpoint = CheckpointHandler.GetFirstCheckpoint();
     }
@@ -67,6 +71,7 @@ public class Player : MonoBehaviour
 
         ServerSend.PlayerPosition(this);
         ServerSend.PlayerRotation(this);
+        ServerSend.PlayerState(this);
     }
 
     private void HandleMotor(float _direction)
@@ -115,5 +120,10 @@ public class Player : MonoBehaviour
     {
         this.inputs = _inputs;
         //transform.rotation = _rotation;
+    }
+
+    public void SetReady(bool isReady)
+    {
+        this.isReady = isReady;
     }
 }

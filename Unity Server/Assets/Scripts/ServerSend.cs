@@ -80,6 +80,17 @@ public class ServerSend
         }
     }
 
+    public static void PlayerState(Player _player)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.playerState))
+        {
+            _packet.Write(_player.id);
+            _packet.Write(_player.isReady);
+
+            SendTCPDataToAll(_packet);
+        }
+    }
+
     public static void PlayerDisconnected(int _playerId)
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerDisconnected))

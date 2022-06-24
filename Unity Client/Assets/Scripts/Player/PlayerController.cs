@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private void FixedUpdate()
     {
+        if(GameManager.instance.startGame)
         SendInputToServer();
     }
 

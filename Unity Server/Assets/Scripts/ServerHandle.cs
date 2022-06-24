@@ -28,4 +28,11 @@ public class ServerHandle
 
         Server.clients[_fromClient].player.SetInput(_inputs);
     }
+
+    public static void PlayerReady(int _fromClient, Packet _packet)
+    {
+        bool _inputs = _packet.ReadBool();
+
+        Server.clients[_fromClient].player.SetReady(_inputs);
+    }
 }

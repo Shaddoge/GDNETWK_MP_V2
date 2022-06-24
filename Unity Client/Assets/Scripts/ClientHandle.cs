@@ -55,5 +55,16 @@ public class ClientHandle : MonoBehaviour
         
         Destroy(GameManager.players[_id].gameObject);
         GameManager.players.Remove(_id);
+        ProfileManager.instance.RemoveProfile(_id);
+    }
+
+    public static void PlayerState(Packet _packet)
+    {
+        if (GameManager.players.Count == 0) return;
+        //if (!Client.instance.IsConnected) return;
+        int _id = _packet.ReadInt();
+        bool _isReady = _packet.ReadBool();
+
+        GameManager.players[_id].isReady = _isReady;
     }
 }
