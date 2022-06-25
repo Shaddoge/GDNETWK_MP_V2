@@ -42,10 +42,10 @@ public class PlayerManager : MonoBehaviour
             currTime += Time.deltaTime;
             transform.position = Vector3.Lerp(oldPos, _newPosition, currTime / Time.fixedDeltaTime);
             //transform.position = Vector3.MoveTowards(oldPos, _newPosition, currTime / Time.fixedDeltaTime);
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
-        //transform.position = Vector3.LerpUnclamped(oldPos, _newPosition, 1f);
-        transform.position = _newPosition;
+        transform.position = Vector3.LerpUnclamped(oldPos, _newPosition, currTime / Time.fixedDeltaTime);
+        //transform.position = _newPosition;
     }
 
     private IEnumerator LerpToNewRotation(Quaternion _newRotation)
@@ -58,10 +58,10 @@ public class PlayerManager : MonoBehaviour
         {
             currTime += Time.deltaTime;
             transform.rotation = Quaternion.Lerp(oldRot, _newRotation, currTime / Time.fixedDeltaTime);
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
-        //transform.rotation = Quaternion.LerpUnclamped(oldRot, _newRotation, 1f);
-        transform.rotation = _newRotation;
+        transform.rotation = Quaternion.LerpUnclamped(oldRot, _newRotation, currTime / Time.fixedDeltaTime);
+        //transform.rotation = _newRotation;
     }
 
     private IEnumerator LerpAllWheels(List<Vector3> _newPositions, List<Quaternion> _newRotations)
@@ -86,16 +86,16 @@ public class PlayerManager : MonoBehaviour
                 wheels[i].position = Vector3.Lerp(oldPos[i], _newPositions[i], currTime / Time.fixedDeltaTime);
                 wheels[i].rotation = Quaternion.Lerp(oldRot[i], _newRotations[i], currTime / Time.fixedDeltaTime);
             }
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
 
         for (int i = 0; i < wheels.Length; i++)
         {
-            //wheels[i].position = Vector3.LerpUnclamped(oldPos[i], _newPositions[i], 1f);
-            //wheels[i].rotation = Quaternion.LerpUnclamped(oldRot[i], _newRotations[i], 1f);
+            wheels[i].position = Vector3.LerpUnclamped(oldPos[i], _newPositions[i], currTime / Time.fixedDeltaTime);
+            wheels[i].rotation = Quaternion.LerpUnclamped(oldRot[i], _newRotations[i], currTime / Time.fixedDeltaTime);
 
-            wheels[i].position = _newPositions[i];
-            wheels[i].rotation = _newRotations[i];
+            //wheels[i].position = _newPositions[i];
+            //wheels[i].rotation = _newRotations[i];
         }
     }
 }

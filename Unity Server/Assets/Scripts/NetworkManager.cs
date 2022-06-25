@@ -7,7 +7,7 @@ public class NetworkManager : MonoBehaviour
     public static NetworkManager instance;
 
     [SerializeField] private int maxPlayers = 4;
-    [SerializeField] private int port = 8888;
+    [SerializeField] private int port = 7777;
 
     [Header("Spawn Point")]
     [SerializeField] private Transform[] spawnPoints;

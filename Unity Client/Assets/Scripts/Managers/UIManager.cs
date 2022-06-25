@@ -7,9 +7,11 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
-    public GameObject mainMenu;
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private InputField[] ipFields;
+    [SerializeField] private InputField portField;
     public InputField usernameField;
-    public GameObject LobbyPanel;
+    [SerializeField] private GameObject LobbyPanel;
 
     private void Awake()
     {
@@ -27,12 +29,40 @@ public class UIManager : MonoBehaviour
     public void ConnectToServer()
     {
         mainMenu.SetActive(false);
+
+        foreach(InputField input in ipFields)
+        {
+            input.interactable = false;
+        }
+
+        portField.interactable = false;
         usernameField.interactable = false;
-        Client.instance.ConnectToServer();
+        Client.instance.ConnectToServer(GetIpValue(), (portField.text != "") ? int.Parse(portField.text) : int.Parse(portField.placeholder.GetComponent<Text>().text));
         if(LobbyPanel != null)
         {
             LobbyPanel.SetActive(true);
-        }
+        }   
     }
 
+    private string GetIpValue()
+    {
+        string _ip = "";
+
+        for (int i = 0; i < ipFields.Length; i++)
+        {
+            
+            if (ipFields[i].text != "")
+            {
+                _ip += ipFields[i].text;
+            }
+            else
+            {
+                _ip += ipFields[i].placeholder.GetComponent<Text>().text;
+            }
+            
+            _ip += (i != ipFields.Length - 1) ? "." : "";
+        }
+
+        return _ip;
+    }
 }

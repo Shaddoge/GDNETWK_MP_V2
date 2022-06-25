@@ -44,10 +44,13 @@ public class Client : MonoBehaviour
         Disconnect();
     }
 
-    public void ConnectToServer()
+    public void ConnectToServer(string _ip, int _port)
     {
         Debug.Log("INITIALIZE CLIENT");
         InitializeClientData();
+
+        this.ip = _ip;
+        this.port = _port;
 
         isConnected = true;
         tcp.Connect();

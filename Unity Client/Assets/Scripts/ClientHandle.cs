@@ -29,7 +29,7 @@ public class ClientHandle : MonoBehaviour
 
     public static void PlayerPosition(Packet _packet)
     {
-        if(GameManager.players.Count == 0) return;
+        if (GameManager.players.Count == 0) return;
         //if (!Client.instance.IsConnected) return;
         int _id = _packet.ReadInt();
         Vector3 _newPosition = _packet.ReadVector3();
@@ -41,7 +41,7 @@ public class ClientHandle : MonoBehaviour
 
     public static void PlayerRotation(Packet _packet)
     {
-        if(GameManager.players.Count == 0) return;
+        if (GameManager.players.Count == 0) return;
         //if (!Client.instance.IsConnected) return;
         int _id = _packet.ReadInt();
         Quaternion _newRotation = _packet.ReadQuaternion();
@@ -52,7 +52,7 @@ public class ClientHandle : MonoBehaviour
 
     public static void PlayerWheels(Packet _packet)
     {
-        if(GameManager.players.Count == 0) return;
+        if (GameManager.players.Count == 0) return;
         int _id = _packet.ReadInt();
         List<Vector3> wheelPos = new List<Vector3>();
         List<Quaternion> wheelRot = new List<Quaternion>();

@@ -69,10 +69,10 @@ public class Player : MonoBehaviour
         HandleMotor(_inputDirection.y);
         UpdateWheels();
 
-        ServerSend.PlayerPosition(this);
         ServerSend.PlayerRotation(this);
-        ServerSend.PlayerState(this);
+        ServerSend.PlayerPosition(this);
         ServerSend.PlayerWheels(this);
+        ServerSend.PlayerState(this);
     }
 
     private void HandleMotor(float _direction)
