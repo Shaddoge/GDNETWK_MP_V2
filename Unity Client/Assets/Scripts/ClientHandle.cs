@@ -96,4 +96,10 @@ public class ClientHandle : MonoBehaviour
         //Debug.Log($"{GameManager.players[_id].username} finished!");
         FeedManager.instance.CreateFeed($"{GameManager.players[_id].username} finished!");
     }
+
+    public static void PlayerChat(Packet _packet)
+    {
+        string _message = _packet.ReadString();
+        ChatManager.instance.AddChatInstance(_message);
+    }
 }

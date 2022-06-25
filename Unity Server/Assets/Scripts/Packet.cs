@@ -16,6 +16,7 @@ public enum ServerPackets
     placementChanged,
     playerFinished,
     playerState,
+    playerChat
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -23,7 +24,8 @@ public enum ClientPackets
 {
     welcomeReceived = 1,
     playerMovement,
-    playerReady
+    playerReady,
+    playerSendChat
 }
 
 public class Packet : IDisposable

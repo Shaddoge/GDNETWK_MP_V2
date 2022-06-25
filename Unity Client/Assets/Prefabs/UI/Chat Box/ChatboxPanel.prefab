@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 2836545198873587530}
   - component: {fileID: 4555482433268806387}
   m_Layer: 5
-  m_Name: TextInput
+  m_Name: ChatInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -567,6 +567,7 @@ GameObject:
   - component: {fileID: 4555482434185795398}
   - component: {fileID: 4555482434185795401}
   - component: {fileID: 4555482434185795400}
+  - component: {fileID: 1516508626007492958}
   m_Layer: 5
   m_Name: ChatboxPanel
   m_TagString: Untagged
@@ -660,6 +661,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1516508626007492958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4555482434185795402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba758619d139ddc4bb4e4ec5303cfae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chatInstance: {fileID: 6088867846537087532, guid: a374bf92d297de640ba25580222ad18f, type: 3}
+  chatInput: {fileID: 2836545198873587530}
+  chatContent: {fileID: 8700428779854971799}
 --- !u!1 &4555482434661755012
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,7 +797,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4555482434661755008}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1516508626007492958}
+        m_TargetAssemblyTypeName: ChatManager, Assembly-CSharp
+        m_MethodName: SendChat
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4555482434661755010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1086,8 +1114,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 6402183802215827368}
+  m_Children: []
   m_Father: {fileID: 6766882459396415009}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1456,105 +1483,3 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!1001 &7739691865012662120
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 8700428779854971799}
-    m_Modifications:
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6088867846537087532, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-      propertyPath: m_Name
-      value: ChatInstance
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a374bf92d297de640ba25580222ad18f, type: 3}
---- !u!224 &6402183802215827368 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3724978827095107776, guid: a374bf92d297de640ba25580222ad18f, type: 3}
-  m_PrefabInstance: {fileID: 7739691865012662120}
-  m_PrefabAsset: {fileID: 0}

@@ -129,5 +129,15 @@ public class ServerSend
         }
     }
 
+    public static void PlayerChat(string _message)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.playerChat))
+        {
+            _packet.Write(_message);
+            Debug.Log($"Sending: {_message}");
+            SendTCPDataToAll(_packet);
+        }
+    }
+
     #endregion
 }

@@ -35,4 +35,13 @@ public class ServerHandle
 
         Server.clients[_fromClient].player.SetReady(_inputs);
     }
+
+    public static void PlayerSendChat(int _fromClient, Packet _packet)
+    {
+        string _message = _packet.ReadString();
+
+        string display = Server.clients[_fromClient].player.username + ": " + _message;
+
+        ServerSend.PlayerChat(display);
+    }
 }

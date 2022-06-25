@@ -203,6 +203,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerDisconnected, ClientHandle.PlayerDisconnected },
             { (int)ServerPackets.playerFinished, ClientHandle.PlayerFinished},
             { (int)ServerPackets.playerState, ClientHandle.PlayerState },
+            { (int)ServerPackets.playerChat, ClientHandle.PlayerChat },
         };
         Debug.Log("Initialized packets");
     }

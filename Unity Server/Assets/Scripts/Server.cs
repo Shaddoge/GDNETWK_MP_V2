@@ -59,6 +59,7 @@ public class Server
             { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
             { (int)ClientPackets.playerMovement, ServerHandle.PlayerMovement },
             { (int)ClientPackets.playerReady, ServerHandle.PlayerReady },
+            { (int)ClientPackets.playerSendChat, ServerHandle.PlayerSendChat },
         };
         Console.WriteLine("Initialized packets.");
     }
