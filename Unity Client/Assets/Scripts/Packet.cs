@@ -15,7 +15,7 @@ using UnityEngine;
         playerDisconnected,
         placementChanged,
         playerFinished,
-        playerState
+        playerState,
     }
 
     /// <summary>Sent from client to server.</summary>

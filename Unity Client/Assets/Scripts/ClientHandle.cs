@@ -82,6 +82,9 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         
+        if(_id != Client.instance.myId)
+            FeedManager.instance.CreateFeed($"{GameManager.players[_id].username} disconnected.");
+
         Destroy(GameManager.players[_id].gameObject);
         GameManager.players.Remove(_id);
         ProfileManager.instance.RemoveProfile(_id);
@@ -90,6 +93,7 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerFinished(Packet _packet)
     {
         int _id = _packet.ReadInt();
-        Debug.Log($"{GameManager.players[_id].username} finished!");
+        //Debug.Log($"{GameManager.players[_id].username} finished!");
+        FeedManager.instance.CreateFeed($"{GameManager.players[_id].username} finished!");
     }
 }

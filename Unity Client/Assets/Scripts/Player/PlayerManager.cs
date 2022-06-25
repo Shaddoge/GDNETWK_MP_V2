@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -8,11 +9,17 @@ public class PlayerManager : MonoBehaviour
     public string username;
     public bool isReady = false;
     public Transform[] wheels = new Transform[4];
+    [SerializeField] private TextMeshProUGUI displayName;
 
     public void Initialize(int _id, string _username)
     {
         this.id = _id;
         this.username = _username;
+
+        if (displayName != null)
+        {
+            displayName.text = username;
+        }
     }
 
     public void LerpPos(Vector3 _newPosition)
