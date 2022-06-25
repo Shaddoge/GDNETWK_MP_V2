@@ -79,7 +79,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'shad: 123'
+  m_Text: 'NAME: <Message Here>'
 --- !u!114 &4909988556647204847
 MonoBehaviour:
   m_ObjectHideFlags: 0

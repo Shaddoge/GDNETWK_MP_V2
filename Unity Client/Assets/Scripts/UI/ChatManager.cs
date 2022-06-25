@@ -56,7 +56,7 @@ public class ChatManager : MonoBehaviour
 
     public void AddChatInstance(string _message)
     {
-        Instantiate(chatInstance, chatContent);
-        chatInstance.GetComponent<Text>().text = _message;
+        GameObject newChatInstance = Instantiate(chatInstance, chatContent);
+        newChatInstance.GetComponent<Text>().text = _message;
     }
 }
