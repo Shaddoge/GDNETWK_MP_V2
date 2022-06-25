@@ -13,7 +13,7 @@ public enum ServerPackets
     playerRotation,
     playerWheels,
     playerDisconnected,
-    placementChanged,
+    positionChanged,
     playerFinished,
     playerState,
     playerChat

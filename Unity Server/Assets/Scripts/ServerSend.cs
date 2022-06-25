@@ -119,6 +119,16 @@ public class ServerSend
         }
     }
 
+    public static void PositionChanged(int _playerId, int _place)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.positionChanged))
+        {
+            _packet.Write(_place);
+
+            SendTCPData(_playerId, _packet);
+        }
+    }
+
     public static void PlayerFinished(int _playerId)
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerFinished))

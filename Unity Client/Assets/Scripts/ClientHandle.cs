@@ -90,6 +90,13 @@ public class ClientHandle : MonoBehaviour
         ProfileManager.instance.RemoveProfile(_id);
     }
 
+    public static void PositionChanged(Packet _packet)
+    {
+        int _place = _packet.ReadInt();
+
+        PositionManager.instance.SetPosition(_place);
+    }
+
     public static void PlayerFinished(Packet _packet)
     {
         int _id = _packet.ReadInt();

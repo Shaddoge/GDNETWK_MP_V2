@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
 {
     public int id;
     public string username;
+    public int placement;
     public bool isReady = false;
     public Transform[] wheels = new Transform[4];
     [SerializeField] private TextMeshProUGUI displayName;

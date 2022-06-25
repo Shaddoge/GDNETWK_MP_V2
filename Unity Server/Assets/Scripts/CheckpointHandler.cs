@@ -59,16 +59,18 @@ public class CheckpointHandler : MonoBehaviour
 
             Server.clients[i].player.placement = newPlacement;
             Debug.Log($"Player {Server.clients[i].player.username}, Position: {newPlacement}");
+            ServerSend.PositionChanged(i, newPlacement);
         };
         
         
-        for (int i = 1; i <= Server.MaxPlayers; i++)
+        /*for (int i = 1; i <= Server.MaxPlayers; i++)
         {
             if(Server.clients[i].player != null)
             {
                 Server.clients[i].player.placement = i;
+                
             }
-        };
+        };*/
     }
 
     public static Checkpoint GetFirstCheckpoint()
