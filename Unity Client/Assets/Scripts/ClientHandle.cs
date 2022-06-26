@@ -100,8 +100,26 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerFinished(Packet _packet)
     {
         int _id = _packet.ReadInt();
-        //Debug.Log($"{GameManager.players[_id].username} finished!");
-        FeedManager.instance.CreateFeed($"{GameManager.players[_id].username} finished!");
+        int _place = _packet.ReadInt();
+        float _time = _packet.ReadFloat();
+
+        string _displayPlace = _place.ToString();
+        switch(_place)
+        {
+            case 1: _displayPlace += "st"; break;
+            case 2: _displayPlace += "nd"; break;
+            default: _displayPlace += "th"; break;
+        }
+
+        if(_id == Client.instance.myId)
+        {
+            GameOverManager.instance.GameOverDisplay(_place, _time);
+        }
+        else
+        {
+            FeedManager.instance.CreateFeed($"{GameManager.players[_id].username} finished in {_displayPlace}!");
+        }
+        
     }
 
     public static void PlayerChat(Packet _packet)
@@ -126,8 +144,16 @@ public class ClientHandle : MonoBehaviour
         {
             case 0: ProfileManager.instance.TimerStarted();
                     UIManager.instance.TimerStarted(); break;
-            case 1: ; break;
+            case 1: break; // Display Timer
+            case 2: break; // Reset Lobby
         }
         Debug.Log(_idState);
+    }
+
+    public static void TrackChange(Packet _packet)
+    {
+        int _trackId = _packet.ReadInt();
+
+        GameManager.instance.ChangeTrack(_trackId);
     }
 }

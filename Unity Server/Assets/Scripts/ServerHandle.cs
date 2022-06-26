@@ -36,7 +36,7 @@ public class ServerHandle
         Server.clients[_fromClient].player.SetReady(_isReady);
         ServerSend.PlayerReady(_fromClient, _isReady);
 
-        Server.ReadyCheck();
+        GameManager.instance.ReadyCheck();
     }
 
     public static void PlayerSendChat(int _fromClient, Packet _packet)

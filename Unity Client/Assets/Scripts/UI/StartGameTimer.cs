@@ -26,7 +26,8 @@ public class StartGameTimer : MonoBehaviour
         {
             currentTime -= 1 * Time.deltaTime;
 
-            countdownText.text = currentTime.ToString("0");
+            if(countdownText.text != currentTime.ToString("0"))
+                countdownText.text = currentTime.ToString("0");
 
             if (currentTime < 1)
             {

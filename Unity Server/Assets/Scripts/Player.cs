@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public Checkpoint nextCheckpoint;
     public int placement = 1;
     public bool canMove = false;
+    public bool isFinished = false;
 
     // Input
     private bool[] inputs;
@@ -126,18 +127,5 @@ public class Player : MonoBehaviour
     public void SetReady(bool isReady)
     {
         this.isReady = isReady;
-    }
-
-    public void StartTimer()
-    {
-        StartCoroutine(TimerPrompt());
-    }
-
-    private IEnumerator TimerPrompt()
-    {
-        ServerSend.TimerStart();
-        yield return new WaitForSeconds(5f);
-        this.canMove = true;
-        ServerSend.GameStart();
     }
 }

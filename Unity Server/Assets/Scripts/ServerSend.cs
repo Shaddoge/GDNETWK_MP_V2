@@ -129,12 +129,13 @@ public class ServerSend
         }
     }
 
-    public static void PlayerFinished(int _playerId)
+    public static void PlayerFinished(int _playerId, int _place, float _timeFin)
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerFinished))
         {
             _packet.Write(_playerId);
-
+            _packet.Write(_place);
+            _packet.Write(_timeFin);
             SendTCPDataToAll(_packet);
         }
     }
@@ -160,22 +161,20 @@ public class ServerSend
         }
     }
 
-    public static void TimerStart()
+    public static void GameState(int _stateId)
     {
         using (Packet _packet = new Packet((int)ServerPackets.gameState))
         {
-            Debug.Log("Timer Started!");
-            _packet.Write(0);
+            _packet.Write(_stateId);
             SendTCPDataToAll(_packet);
         }
     }
 
-    public static void GameStart()
+    public static void TrackChange(int _trackNum)
     {
-        using (Packet _packet = new Packet((int)ServerPackets.gameState))
+        using (Packet _packet = new Packet((int)ServerPackets.trackChange))
         {
-            Debug.Log("Game Start!");
-            _packet.Write(1);
+            _packet.Write(_trackNum);
             SendTCPDataToAll(_packet);
         }
     }

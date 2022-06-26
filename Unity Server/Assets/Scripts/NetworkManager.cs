@@ -24,7 +24,7 @@ public class NetworkManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Removing the copy of client instance");
+            Debug.Log("Removing the copy of NetworkManager instance");
             Destroy(this);
         }
     }
@@ -33,7 +33,6 @@ public class NetworkManager : MonoBehaviour
     {
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
-
 
         Server.Start(maxPlayers, port);
     }

@@ -8,32 +8,13 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
-    //public bool startGame = false;
-    private int numOfReady = 0;
+
+    [Header("Objects")]
+    [SerializeField] private GameObject[] tracks;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject localPlayerPrefab;
     [SerializeField] private GameObject playerPrefab;
-
-    public void FixedUpdate()
-    {
-        /*foreach (var player in players)
-        {
-            if (player.Value.isReady) numOfReady++;
-        }
-
-        if (players.Count != 0 && players.Count == numOfReady)
-        {
-            startGame = true;
-        }
-
-        else
-        {
-            startGame = false;
-        }
-
-        numOfReady = 0;*/
-    }
 
     private void Awake()
     {
@@ -43,7 +24,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Removing the copy of client instance");
+            Debug.Log("Removing the copy of GameManager instance");
             Destroy(this);
         }
     }
@@ -69,7 +50,6 @@ public class GameManager : MonoBehaviour
 
     public void AddProfile(int _id, string _username)
     {
-        GameObject _player;
         if (_id == Client.instance.myId)
         {
             ProfileManager.instance.CreateLocalPlayerProfile(_id, _username);
@@ -77,6 +57,22 @@ public class GameManager : MonoBehaviour
         else
         {
             ProfileManager.instance.CreatePlayerProfile(_id, _username);
+        }
+    }
+
+    public void ChangeTrack(int _trackId)
+    {
+        Debug.Log($"Track change! {_trackId}");
+        for (int i = 0; i < tracks.Length; i++)
+        {
+            if(i == _trackId)
+            {
+                tracks[i].SetActive(true);
+            }
+            else
+            {
+                tracks[i].SetActive(false);
+            }
         }
     }
 }

@@ -207,6 +207,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerChat, ClientHandle.PlayerChat },
             { (int)ServerPackets.playerReady, ClientHandle.PlayerReady },
             { (int)ServerPackets.gameState, ClientHandle.GameState },
+            { (int)ServerPackets.trackChange, ClientHandle.TrackChange }
         };
         Debug.Log("Initialized packets");
     }

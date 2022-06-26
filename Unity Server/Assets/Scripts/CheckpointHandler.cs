@@ -4,10 +4,26 @@ using UnityEngine;
 
 public class CheckpointHandler : MonoBehaviour
 {
+    public static CheckpointHandler instance;
     [SerializeField] private static List<Checkpoint> checkpoints = new List<Checkpoint>();
-
-    void Awake()
+    public int numFinished = 0;
+    
+    private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Debug.Log("Removing the copy of CheckpointHandler instance");
+            Destroy(this);
+        }
+    }
+
+    private void Start()
+    {
+        numFinished = 0;
         if (checkpoints.Count == 0)
         {
             Checkpoint[] children = transform.GetComponentsInChildren<Checkpoint>();
@@ -24,12 +40,12 @@ public class CheckpointHandler : MonoBehaviour
         }
     }
 
-    public static void CalculatePlacement()
+    public void CalculatePlacement()
     {
         for (int i = 1; i <= Server.MaxPlayers; i++)
         {
             if(Server.clients[i].player == null) continue;
-            int newPlacement = 1;
+            int newPlacement = 1 + numFinished;
 
             for (int j = 1; j <= Server.MaxPlayers; j++)
             {

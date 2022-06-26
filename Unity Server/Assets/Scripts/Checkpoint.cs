@@ -11,21 +11,29 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            // Has next checkpoint
             if (nextTarget != null)
             {
                 // If trigger is the correct next checkpoint
                 if (id >= other.GetComponent<Player>().nextCheckpoint.id)
                 {
                     other.GetComponent<Player>().nextCheckpoint = nextTarget;
-                    CheckpointHandler.CalculatePlacement();
+                    CheckpointHandler.instance.CalculatePlacement();
                 }
             }
+            // Finish line
             else
             {
-                // Finish line
-                // Send player id
-                Debug.Log("FINISH LINE!");
-                ServerSend.PlayerFinished(other.GetComponent<Player>().id);
+                Player player = other.GetComponent<Player>();
+                if(player.isFinished) return;
+
+                CheckpointHandler.instance.numFinished++;
+                if (CheckpointHandler.instance.numFinished == 1)
+                {
+                    StartCoroutine(GameManager.instance.FinishCountdown());
+                }
+                player.canMove = false;
+                ServerSend.PlayerFinished(player.id, CheckpointHandler.instance.numFinished, GameManager.instance.trackTime);
             }
         }
     }
