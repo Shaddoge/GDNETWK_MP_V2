@@ -129,8 +129,15 @@ public class Player : MonoBehaviour
 
     public void SetInput(bool[] _inputs)
     {
-        if (!this.canMove) return;
-        this.inputs = _inputs;
+        if (!this.canMove)
+        {
+            for (int i = 0; i < inputs.Length; i++)
+            {
+                inputs[i] = (i == 4) ? true : false;
+            }
+            return;
+        }
+            this.inputs = _inputs;
     }
 
     public void SetReady(bool isReady)
