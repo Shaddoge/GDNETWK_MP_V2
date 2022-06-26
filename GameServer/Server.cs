@@ -15,7 +15,7 @@ namespace GameServer
         public static Dictionary<int, PacketHandler> packetHandlers;
 
         private static TcpListener tcpListener;
-
+        
         public static void Start(int _maxPlayers, int _port)
         {
             MaxPlayers = _maxPlayers;
@@ -48,7 +48,6 @@ namespace GameServer
 
             Console.WriteLine($"{_client.Client.RemoteEndPoint} failed to connect: Server full");
         }
-
         private static void InitializeServerData()
         {
             for (int i = 1; i <= MaxPlayers; i++)
@@ -58,7 +57,8 @@ namespace GameServer
 
             packetHandlers = new Dictionary<int, PacketHandler>()
             {
-                { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived }
+                { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
+                { (int)ClientPackets.playerMovement, ServerHandle.PlayerMovement },
             };
             Console.WriteLine("Initialized packets.");
         }
