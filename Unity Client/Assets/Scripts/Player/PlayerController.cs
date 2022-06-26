@@ -4,26 +4,28 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private bool startMovement = false;
+    //private bool startMovement = false;
 
     private void FixedUpdate()
     {
-        if (GameManager.instance.startGame)
+        /*if (GameManager.instance.startGame)
         {
             StartCoroutine("StartGame");
-        }
+        }*/
 
-        if (startMovement)
+        SendInputToServer();
+
+        /*if (startMovement)
         {
-            SendInputToServer();
-        }
+            
+        }*/
     }
 
-    IEnumerator StartGame()
+    /*IEnumerator StartGame()
     {
         yield return new WaitForSeconds(5f);
         startMovement = true;
-    }
+    }*/
 
     private void SendInputToServer()
     {

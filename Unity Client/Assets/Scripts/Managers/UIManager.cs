@@ -8,10 +8,13 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
 
     [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject LobbyPanel;
+
+    [Header("Input Fields")]
     [SerializeField] private InputField[] ipFields;
     [SerializeField] private InputField portField;
     public InputField usernameField;
-    [SerializeField] private GameObject LobbyPanel;
+    
 
     private void Awake()
     {
@@ -64,5 +67,10 @@ public class UIManager : MonoBehaviour
         }
 
         return _ip;
+    }
+
+    public void TimerStarted()
+    {
+        LobbyPanel.GetComponent<StartGameTimer>().StartTimer();
     }
 }

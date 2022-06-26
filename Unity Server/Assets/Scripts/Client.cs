@@ -177,7 +177,8 @@ public class Client
         ThreadManager.ExecuteOnMainThread(() =>
         {
             Debug.Log(player);
-            UnityEngine.Object.Destroy(player.gameObject);
+            if (player.gameObject)
+                UnityEngine.Object.Destroy(player.gameObject);
             player = null;
         });
 

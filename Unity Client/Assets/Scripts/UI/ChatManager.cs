@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ChatManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class ChatManager : MonoBehaviour
     [SerializeField] private InputField chatInput;
     [SerializeField] private Transform chatContent;
     
+    private bool isFocused = false;
     private void Awake()
     {
         if (instance == null)
@@ -27,16 +29,13 @@ public class ChatManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(chatInput.text != "")
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            if(Input.GetKeyDown(KeyCode.Return))
+            if (EventSystem.current.currentSelectedGameObject == chatInput.gameObject)
             {
                 SendChat();
             }
-        }
-        else
-        {
-            if (chatInput.isFocused && Input.GetKeyDown(KeyCode.Return))
+            else
             {
                 chatInput.ActivateInputField();
             }

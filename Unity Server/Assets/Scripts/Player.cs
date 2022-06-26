@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public string username;
     public Checkpoint nextCheckpoint;
     public int placement = 1;
+    public bool canMove = false;
 
     // Input
     private bool[] inputs;
@@ -118,12 +119,25 @@ public class Player : MonoBehaviour
 
     public void SetInput(bool[] _inputs)
     {
+        if (!this.canMove) return;
         this.inputs = _inputs;
-        //transform.rotation = _rotation;
     }
 
     public void SetReady(bool isReady)
     {
         this.isReady = isReady;
+    }
+
+    public void StartTimer()
+    {
+        StartCoroutine(TimerPrompt());
+    }
+
+    private IEnumerator TimerPrompt()
+    {
+        ServerSend.TimerStart();
+        yield return new WaitForSeconds(5f);
+        this.canMove = true;
+        ServerSend.GameStart();
     }
 }

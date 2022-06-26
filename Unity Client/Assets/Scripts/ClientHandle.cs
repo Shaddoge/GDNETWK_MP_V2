@@ -109,4 +109,25 @@ public class ClientHandle : MonoBehaviour
         string _message = _packet.ReadString();
         ChatManager.instance.AddChatInstance(_message);
     }
+
+    public static void PlayerReady(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        bool _isReady = _packet.ReadBool();
+        ProfileManager.instance.ToggleCheck(_id, _isReady);
+        //ProfileManager.instance.
+    }
+
+    public static void GameState(Packet _packet)
+    {
+        int _idState = _packet.ReadInt();
+
+        switch(_idState)
+        {
+            case 0: ProfileManager.instance.TimerStarted();
+                    UIManager.instance.TimerStarted(); break;
+            case 1: ; break;
+        }
+        Debug.Log(_idState);
+    }
 }

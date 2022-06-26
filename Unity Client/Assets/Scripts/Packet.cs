@@ -16,7 +16,9 @@ public enum ServerPackets
     positionChanged,
     playerFinished,
     playerState,
-    playerChat
+    playerChat,
+    playerReady,
+    gameState
 }
 
 /// <summary>Sent from client to server.</summary>

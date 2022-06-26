@@ -37,7 +37,7 @@ public class ProfileManager : MonoBehaviour
 
     public void Update()
     {
-        for (int i = 0; i < PlayerProfileList.Count; i++)
+        /*for (int i = 0; i < PlayerProfileList.Count; i++)
         {
             if (PlayerProfileList[i].id != Client.instance.myId)
             {
@@ -52,6 +52,7 @@ public class ProfileManager : MonoBehaviour
                 }
             }
 
+            // Should be called when informed from the server
             if (GameManager.instance.startGame)
             {
                 if (PlayerProfileList[i].id == Client.instance.myId)
@@ -59,7 +60,17 @@ public class ProfileManager : MonoBehaviour
                     PlayerProfileList[i].panel.transform.GetChild(1).GetComponent<Toggle>().interactable = false;
                 }
             }
-        }
+        }*/
+    }
+
+    public void TimerStarted()
+    {
+        PlayerProfileList[Client.instance.myId - 1].panel.transform.GetChild(1).GetComponent<Toggle>().interactable = false;
+    }
+
+    public void ToggleCheck(int _id, bool _isReady)
+    {
+        PlayerProfileList[_id - 1].panel.transform.GetChild(1).gameObject.SetActive(_isReady);
     }
 
     public void CreateLocalPlayerProfile(int _id, string _username)

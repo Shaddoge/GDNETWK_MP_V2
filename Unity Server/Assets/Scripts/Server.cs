@@ -64,6 +64,32 @@ public class Server
         Console.WriteLine("Initialized packets.");
     }
 
+    public static void ReadyCheck()
+    {
+        int totalPlayers = 0;
+        for (int i = 1; i <= MaxPlayers; i++)
+        {
+            if (clients[i].tcp.socket != null)
+            {
+                totalPlayers++;
+                if(!clients[i].player.isReady)
+                {
+                    return;
+                }
+            }
+        }
+
+        if (totalPlayers == 0) return;
+
+        for (int i = 1; i <= MaxPlayers; i++)
+        {
+            if (clients[i].tcp.socket != null)
+            {
+                clients[i].player.StartTimer();
+            }
+        }
+    }
+
     public static void Stop()
     {
         tcpListener.Stop();

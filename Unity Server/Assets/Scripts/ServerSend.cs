@@ -144,10 +144,40 @@ public class ServerSend
         using (Packet _packet = new Packet((int)ServerPackets.playerChat))
         {
             _packet.Write(_message);
-            Debug.Log($"Sending: {_message}");
+
             SendTCPDataToAll(_packet);
         }
     }
 
+    public static void PlayerReady(int _playerId, bool _isReady)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.playerReady))
+        {
+            _packet.Write(_playerId);
+            _packet.Write(_isReady);
+
+            SendTCPDataToAll(_playerId, _packet);
+        }
+    }
+
+    public static void TimerStart()
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.gameState))
+        {
+            Debug.Log("Timer Started!");
+            _packet.Write(0);
+            SendTCPDataToAll(_packet);
+        }
+    }
+
+    public static void GameStart()
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.gameState))
+        {
+            Debug.Log("Game Start!");
+            _packet.Write(1);
+            SendTCPDataToAll(_packet);
+        }
+    }
     #endregion
 }

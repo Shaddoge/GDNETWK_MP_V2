@@ -22,13 +22,7 @@ public class StartGameTimer : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.instance.startGame)
-        {
-            startTime = true;
-            TimerUI.SetActive(true);
-        }
-
-        if (startTime)
+        if (startTime && currentTime > 0)
         {
             currentTime -= 1 * Time.deltaTime;
 
@@ -55,6 +49,7 @@ public class StartGameTimer : MonoBehaviour
 
     public void StartTimer()
     {
+        TimerUI.SetActive(true);
         startTime = true;
     }
 }

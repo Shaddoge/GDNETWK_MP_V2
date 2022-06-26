@@ -31,17 +31,20 @@ public class ServerHandle
 
     public static void PlayerReady(int _fromClient, Packet _packet)
     {
-        bool _inputs = _packet.ReadBool();
+        bool _isReady = _packet.ReadBool();
 
-        Server.clients[_fromClient].player.SetReady(_inputs);
+        Server.clients[_fromClient].player.SetReady(_isReady);
+        ServerSend.PlayerReady(_fromClient, _isReady);
+
+        Server.ReadyCheck();
     }
 
     public static void PlayerSendChat(int _fromClient, Packet _packet)
     {
         string _message = _packet.ReadString();
 
-        string display = Server.clients[_fromClient].player.username + ": " + _message;
-
-        ServerSend.PlayerChat(display);
+        string _display = Server.clients[_fromClient].player.username + ": " + _message;
+        Debug.Log(_display);
+        ServerSend.PlayerChat(_display);
     }
 }

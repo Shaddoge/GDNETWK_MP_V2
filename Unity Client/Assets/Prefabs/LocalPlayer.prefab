@@ -810,6 +810,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   username: 
+  placement: 0
   isReady: 0
   wheels:
   - {fileID: 899554514966215690}
@@ -1979,7 +1980,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6440371192770803959}
-  m_LocalRotation: {x: 0.07088902, y: -0.000382545, z: 0.000027186634, w: 0.99748415}
+  m_LocalRotation: {x: 0.07088902, y: -0.0003825153, z: 0.000027184524, w: 0.99748415}
   m_LocalPosition: {x: 0, y: 1.338, z: -3.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1994,7 +1995,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6440371192770803959}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
   m_Name: 

@@ -205,6 +205,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerFinished, ClientHandle.PlayerFinished},
             { (int)ServerPackets.playerState, ClientHandle.PlayerState },
             { (int)ServerPackets.playerChat, ClientHandle.PlayerChat },
+            { (int)ServerPackets.playerReady, ClientHandle.PlayerReady },
+            { (int)ServerPackets.gameState, ClientHandle.GameState },
         };
         Debug.Log("Initialized packets");
     }

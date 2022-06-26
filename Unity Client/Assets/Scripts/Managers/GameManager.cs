@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
-    public bool startGame = false;
+    //public bool startGame = false;
     private int numOfReady = 0;
 
     [Header("Prefabs")]
@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     public void FixedUpdate()
     {
-        foreach (var player in players)
+        /*foreach (var player in players)
         {
             if (player.Value.isReady) numOfReady++;
         }
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
             startGame = false;
         }
 
-        numOfReady = 0;
+        numOfReady = 0;*/
     }
 
     private void Awake()
