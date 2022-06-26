@@ -17,7 +17,7 @@ public class ProfileManager : MonoBehaviour
     public static List<PlayerProfile> PlayerProfileList = new List<PlayerProfile>();
 
     [Header("Prefabs")] 
-    [SerializeField] private GameObject lobbyPanel;
+    
     [SerializeField] private GameObject profileList;
     [SerializeField] private GameObject localProfilePrefab;
     [SerializeField] private GameObject profilePrefab;
@@ -51,11 +51,14 @@ public class ProfileManager : MonoBehaviour
                     PlayerProfileList[i].panel.transform.GetChild(1).gameObject.SetActive(false);
                 }
             }
-        }
 
-        if (GameManager.instance.startGame)
-        {
-            lobbyPanel.SetActive(false);
+            if (GameManager.instance.startGame)
+            {
+                if (PlayerProfileList[i].id == Client.instance.myId)
+                {
+                    PlayerProfileList[i].panel.transform.GetChild(1).GetComponent<Toggle>().interactable = false;
+                }
+            }
         }
     }
 
