@@ -5,9 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    private bool gameStarted = false;
+    public bool gameStarted = false;
 
     [HideInInspector] public float trackTime = 0f;
+    private bool timeStopped = false;
 
     [SerializeField] private GameObject[] spawns;
     [SerializeField] private GameObject[] tracks;
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (gameStarted)
+        if (gameStarted && !timeStopped)
         {
             trackTime += Time.deltaTime;
         }
@@ -72,8 +73,8 @@ public class GameManager : MonoBehaviour
         ServerSend.GameState(1); // Display Timer
         yield return new WaitForSeconds(10f);
 
-        // Game end;
-        gameStarted = false;
+        // Game end
+        timeStopped = true;
 
         // Should send end screen
         ToggleAllPlayerMove(false);
@@ -103,6 +104,9 @@ public class GameManager : MonoBehaviour
 
         // Reset values
         ResetPlayers();
+
+        gameStarted = false;
+        timeStopped = false;
 
         // Ready check
         ServerSend.GameState(2);

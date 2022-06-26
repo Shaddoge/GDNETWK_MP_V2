@@ -45,7 +45,7 @@ public class Client
             stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
 
             // Send packet
-            ServerSend.Welcome(id, "Welcome to the server!");
+            ServerSend.Welcome(id, "You have successfully joined the server.");
         } 
 
         public void SendData(Packet _packet)

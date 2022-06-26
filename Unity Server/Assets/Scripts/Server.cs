@@ -20,21 +20,28 @@ public class Server
         MaxPlayers = _maxPlayers;
         Port = _port;
 
-        Console.WriteLine("Server booting up...");
+        Debug.Log("Server booting up...");
         InitializeServerData();
 
         tcpListener = new TcpListener(IPAddress.Any, Port);
         tcpListener.Start();
         tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
 
-        Console.WriteLine($"Server started on {Port}.");
+        Debug.Log($"Server started on {Port}.");
     }
 
     private static void TCPConnectCallback(IAsyncResult _result)
     {
         TcpClient _client = tcpListener.EndAcceptTcpClient(_result);
         tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
-        Console.WriteLine($"Incoming connection from {_client.Client.RemoteEndPoint}...");
+        Debug.Log($"Incoming connection from {_client.Client.RemoteEndPoint}...");
+
+        // If game has started
+        if (GameManager.instance.gameStarted)
+        {
+            Debug.Log($"{_client.Client.RemoteEndPoint} failed to connect: Game already started!");
+            return;
+        }
 
         for (int i = 1; i <= MaxPlayers; i++)
         {
@@ -45,7 +52,7 @@ public class Server
             }
         }
 
-        Console.WriteLine($"{_client.Client.RemoteEndPoint} failed to connect: Server full");
+        Debug.Log($"{_client.Client.RemoteEndPoint} failed to connect: Server full");
     }
     private static void InitializeServerData()
     {
@@ -61,7 +68,7 @@ public class Server
             { (int)ClientPackets.playerReady, ServerHandle.PlayerReady },
             { (int)ClientPackets.playerSendChat, ServerHandle.PlayerSendChat },
         };
-        Console.WriteLine("Initialized packets.");
+        Debug.Log("Initialized packets.");
     }
 
     public static void Stop()
