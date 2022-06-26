@@ -101,7 +101,7 @@ public class CheckpointHandler : MonoBehaviour
             tracks[i].SetActive(chosenTrack);
         }
 
-        foreach(GameObject checkPoint in tracks[_trackId].transform)
+        foreach(Transform checkPoint in tracks[_trackId].transform)
         {
             if (checkPoint.GetComponent<Checkpoint>() != null)
                 checkpoints.Add(checkPoint.GetComponent<Checkpoint>());
