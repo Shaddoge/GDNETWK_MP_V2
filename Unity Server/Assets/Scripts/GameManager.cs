@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public float trackTime = 0f;
 
+    [SerializeField] private GameObject[] spawns;
     [SerializeField] private GameObject[] tracks;
     private int currentTrack = 0;
 
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GamePrepare());
     }
 
+    // This function should run when all players are ready
     public IEnumerator GamePrepare()
     {
         ServerSend.GameState(0);
@@ -64,43 +66,64 @@ public class GameManager : MonoBehaviour
         gameStarted = true;
     }
 
+    // This function is used when someone reached the finish line
     public IEnumerator FinishCountdown()
     {
         ServerSend.GameState(1); // Display Timer
         yield return new WaitForSeconds(10f);
-        // Game end;
-        Debug.Log("GAME END");
-        ToggleAllPlayerMove(false);
-        gameStarted = false;
-        // Should send end screen
 
-        ResetAllPlayerReady();
+        // Game end;
+        gameStarted = false;
+
+        // Should send end screen
+        ToggleAllPlayerMove(false);
+
         yield return new WaitForSeconds(5f);
         
         NextTrack();
     }
 
+    // This function will change to the next track and reposition the players
     private void NextTrack()
     {
-        ServerSend.GameState(2);
         currentTrack = (currentTrack + 1) % tracks.Length;
 
+        CheckpointHandler.instance.ChangeCheckpointFromTrack(currentTrack);
         for (int i = 0; i < tracks.Length; i++)
         {
-            if(i == currentTrack)
-            {
-                tracks[i].SetActive(true);
-            }
-            else
-            {
-                tracks[i].SetActive(false);
-            }
+            bool chosen = (i == currentTrack) ? true : false;
+            tracks[i].SetActive(chosen);
         }
         
         // Send info to client and change level
         ServerSend.TrackChange(currentTrack);
+        
         // Reposition the players
+        RepositionPlayers(currentTrack);
+
+        // Reset values
+        ResetPlayers();
+
         // Ready check
+        ServerSend.GameState(2);
+    }
+
+    public void RepositionPlayers(int _trackId)
+    {
+        if(_trackId >= spawns.Length || _trackId < 0) return;
+
+        for (int i = 1; i <= Server.MaxPlayers; i++)
+        {
+            if (Server.clients[i].tcp.socket != null)
+            {
+                int _playerId = Server.clients[i].player.id;
+                Vector3 targetPos = spawns[_trackId].transform.GetChild(_playerId - 1).position;
+                Quaternion targetRot = spawns[_trackId].transform.GetChild(_playerId - 1).rotation;
+
+                Server.clients[i].player.transform.position = targetPos;
+                Server.clients[i].player.transform.rotation = targetRot;
+            }
+        }
     }
 
     public void ToggleAllPlayerMove(bool _canMove)
@@ -114,13 +137,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ResetAllPlayerReady()
+    // Reset player states
+    public void ResetPlayers()
     {
+        ToggleAllPlayerMove(false);
         for (int i = 1; i <= Server.MaxPlayers; i++)
         {
             if (Server.clients[i].tcp.socket != null)
             {
-                Server.clients[i].player.isReady = false;
+                // Reset Ready State
+                Server.clients[i].player.ResetValues();
                 ServerSend.PlayerReady(i, false);
             }
         }

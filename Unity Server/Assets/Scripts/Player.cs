@@ -36,9 +36,18 @@ public class Player : MonoBehaviour
         this.id = _id;
         this.username = _username;
 
+        this.placement = 1;
+        this.isFinished = false;
         this.isReady = false;
         this.inputs = new bool[5];
-        this.nextCheckpoint = CheckpointHandler.GetFirstCheckpoint();
+        this.nextCheckpoint = CheckpointHandler.instance.GetFirstCheckpoint();
+    }
+
+    public void ResetValues()
+    {
+        this.placement = 1;
+        this.isFinished = false;
+        this.isReady = false;
     }
 
     public void FixedUpdate()

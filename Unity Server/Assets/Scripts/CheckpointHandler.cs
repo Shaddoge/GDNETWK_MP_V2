@@ -5,9 +5,11 @@ using UnityEngine;
 public class CheckpointHandler : MonoBehaviour
 {
     public static CheckpointHandler instance;
-    [SerializeField] private static List<Checkpoint> checkpoints = new List<Checkpoint>();
+    [SerializeField] private List<GameObject> tracks = new List<GameObject>();
+    private List<Checkpoint> checkpoints = new List<Checkpoint>();
     public int numFinished = 0;
-    
+    private int trackSelected = 0;
+
     private void Awake()
     {
         if (instance == null)
@@ -24,9 +26,12 @@ public class CheckpointHandler : MonoBehaviour
     private void Start()
     {
         numFinished = 0;
-        if (checkpoints.Count == 0)
+        trackSelected = 0;
+
+        // Initialize checkpoints
+        foreach(GameObject track in tracks)
         {
-            Checkpoint[] children = transform.GetComponentsInChildren<Checkpoint>();
+            Checkpoint[] children = track.transform.GetComponentsInChildren<Checkpoint>();
             for(int i = 0; i < children.Length; i++)
             {
                 children[i].id = i;
@@ -35,9 +40,10 @@ public class CheckpointHandler : MonoBehaviour
                 {
                     children[i].nextTarget = children[i + 1];
                 }
-                checkpoints.Add(children[i]);
             }
         }
+
+        ChangeCheckpointFromTrack(0);
     }
 
     public void CalculatePlacement()
@@ -77,23 +83,28 @@ public class CheckpointHandler : MonoBehaviour
             Debug.Log($"Player {Server.clients[i].player.username}, Position: {newPlacement}");
             ServerSend.PositionChanged(i, newPlacement);
         };
-        
-        
-        /*for (int i = 1; i <= Server.MaxPlayers; i++)
-        {
-            if(Server.clients[i].player != null)
-            {
-                Server.clients[i].player.placement = i;
-                
-            }
-        };*/
     }
 
-    public static Checkpoint GetFirstCheckpoint()
+    public Checkpoint GetFirstCheckpoint()
     {
-        if(checkpoints.Count != 0)
-            return checkpoints[0];
-        else
-            return null;
+        return (checkpoints.Count != 0) ? checkpoints[0] : null;
+    }
+
+    public void ChangeCheckpointFromTrack(int _trackId)
+    {
+        checkpoints.Clear();
+        numFinished = 0;
+
+        for (int i = 0; i < tracks.Count; i++)
+        {
+            bool chosenTrack = (i == _trackId) ? true : false;
+            tracks[i].SetActive(chosenTrack);
+        }
+
+        foreach(GameObject checkPoint in tracks[_trackId].transform)
+        {
+            if (checkPoint.GetComponent<Checkpoint>() != null)
+                checkpoints.Add(checkPoint.GetComponent<Checkpoint>());
+        }
     }
 }
