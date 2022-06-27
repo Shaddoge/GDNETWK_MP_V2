@@ -24,6 +24,7 @@ public class ClientHandle : MonoBehaviour
         Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
         GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
+        UIManager.instance.ToggleLobby(true);
     }
 
     public static void PlayerMovement(Packet _packet)
@@ -126,7 +127,7 @@ public class ClientHandle : MonoBehaviour
             case 0: ProfileManager.instance.TimerStarted();
                     UIManager.instance.StartTimerStarted(); break;
             case 1: break; // Display Timer
-            case 2: break; // Reset Lobby
+            case 2: UIManager.instance.NewTrack(); break; // Reset Lobby
         }
         Debug.Log(_idState);
     }

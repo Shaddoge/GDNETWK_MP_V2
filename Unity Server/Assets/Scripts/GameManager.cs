@@ -88,13 +88,20 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(5f);
         
-        NextTrack();
+        currentTrack++;
+        ChangeTrack();
+    }
+
+    public void ResetTrack()
+    {
+        currentTrack = 0;
+        ChangeTrack();
     }
 
     // This function will change to the next track and reposition the players
-    private void NextTrack()
+    private void ChangeTrack()
     {
-        currentTrack = (currentTrack + 1) % tracks.Length;
+        currentTrack = currentTrack % tracks.Length;
 
         CheckpointHandler.instance.ChangeCheckpointFromTrack(currentTrack);
         for (int i = 0; i < tracks.Length; i++)
@@ -111,9 +118,9 @@ public class GameManager : MonoBehaviour
 
         // Reset values
         ResetPlayers();
-
         gameStarted = false;
         timeRunning = false;
+        trackTime = 0f;
 
         // Ready check
         ServerSend.GameState(2);
@@ -158,7 +165,7 @@ public class GameManager : MonoBehaviour
             {
                 // Reset Ready State
                 Server.clients[i].player.ResetValues();
-                ServerSend.PlayerReady(i, false);
+                //ServerSend.PlayerReady(i, false);
             }
         }
     }

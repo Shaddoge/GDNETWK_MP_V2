@@ -5,9 +5,17 @@ using UnityEngine.UI;
 
 public class GameOverUI : MonoBehaviour
 {
+    
     [SerializeField] private GameObject popup;
     [SerializeField] private Text headerText;
     [SerializeField] private Text timeText;
+
+    private Animator animator;
+
+    private void Start()
+    {
+        animator = this.GetComponent<Animator>();
+    }
 
     public void GameOverDisplay(int _place, float _time)
     {
@@ -21,6 +29,11 @@ public class GameOverUI : MonoBehaviour
 
         headerText.text = $"You finished in {_displayPlace} place!" ;
         timeText.text = $"{_time.ToString("F2")}s";
-        popup.SetActive(true);
+        animator.SetTrigger("Finish");
+    }
+
+    public void CloseGameOver()
+    {
+        animator.SetTrigger("Close");
     }
 }

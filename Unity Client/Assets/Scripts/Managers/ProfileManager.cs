@@ -35,34 +35,6 @@ public class ProfileManager : MonoBehaviour
         }
     }
 
-    public void Update()
-    {
-        /*for (int i = 0; i < PlayerProfileList.Count; i++)
-        {
-            if (PlayerProfileList[i].id != Client.instance.myId)
-            {
-                if (GameManager.players[i + 1].isReady)
-                {
-                    PlayerProfileList[i].panel.transform.GetChild(1).gameObject.SetActive(true);
-                }
-
-                else
-                {
-                    PlayerProfileList[i].panel.transform.GetChild(1).gameObject.SetActive(false);
-                }
-            }
-
-            // Should be called when informed from the server
-            if (GameManager.instance.startGame)
-            {
-                if (PlayerProfileList[i].id == Client.instance.myId)
-                {
-                    PlayerProfileList[i].panel.transform.GetChild(1).GetComponent<Toggle>().interactable = false;
-                }
-            }
-        }*/
-    }
-
     public void TimerStarted()
     {
         PlayerProfileList[Client.instance.myId - 1].panel.transform.GetChild(1).GetComponent<Toggle>().interactable = false;
@@ -73,6 +45,31 @@ public class ProfileManager : MonoBehaviour
         PlayerProfileList[_id - 1].panel.transform.GetChild(1).gameObject.SetActive(_isReady);
     }
 
+    public void ResetAll()
+    {
+        for (int i = 0; i < PlayerProfileList.Count; i++)
+        {
+            PlayerProfileList[i].panel.GetComponent<Animator>().SetBool("IsShow", true);
+            if(i == Client.instance.myId - 1)
+            {
+                PlayerProfileList[i].panel.transform.GetChild(1).GetComponent<Toggle>().isOn = false;
+                PlayerProfileList[i].panel.transform.GetChild(1).GetComponent<Toggle>().interactable = true;
+            }
+            else
+            {
+                PlayerProfileList[i].panel.transform.GetChild(1).gameObject.SetActive(false);
+            }
+        }
+    }   
+
+    public void CloseAnimation()
+    {
+        for (int i = 0; i < PlayerProfileList.Count; i++)
+        {
+            PlayerProfileList[i].panel.GetComponent<Animator>().SetBool("IsShow", false);
+        }
+    }
+
     public void CreateLocalPlayerProfile(int _id, string _username)
     {
         PlayerProfile _profile;
@@ -81,7 +78,6 @@ public class ProfileManager : MonoBehaviour
         _profilePanel.transform.GetChild(0).GetComponent<Text>().text = _username;
         _profile.id = _id;
         _profile.panel = _profilePanel;
-
         PlayerProfileList.Add(_profile);
     }
 
@@ -93,7 +89,6 @@ public class ProfileManager : MonoBehaviour
         _profilePanel.transform.GetChild(0).GetComponent<Text>().text = _username;
         _profile.id = _id;
         _profile.panel = _profilePanel;
-
         PlayerProfileList.Add(_profile);
     }
 
