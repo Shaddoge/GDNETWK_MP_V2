@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public bool gameStarted = false;
 
     [HideInInspector] public float trackTime = 0f;
-    private bool timeStopped = false;
+    private bool timeRunning = false;
 
     [SerializeField] private GameObject[] spawns;
     [SerializeField] private GameObject[] tracks;
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (gameStarted && !timeStopped)
+        if (timeRunning)
         {
             trackTime += Time.deltaTime;
         }
@@ -59,12 +59,19 @@ public class GameManager : MonoBehaviour
     // This function should run when all players are ready
     public IEnumerator GamePrepare()
     {
+        gameStarted = true;
         ServerSend.GameState(0);
         yield return new WaitForSeconds(5f);
 
-        ToggleAllPlayerMove(true);
-
-        gameStarted = true;
+        if(Server.GetNumPlayers() != 0)
+        {
+            ToggleAllPlayerMove(true);
+            timeRunning = true;
+        }
+        else
+        {
+            gameStarted = false;
+        }
     }
 
     // This function is used when someone reached the finish line
@@ -74,7 +81,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(10f);
 
         // Game end
-        timeStopped = true;
+        timeRunning = false;
 
         // Should send end screen
         ToggleAllPlayerMove(false);
@@ -106,7 +113,7 @@ public class GameManager : MonoBehaviour
         ResetPlayers();
 
         gameStarted = false;
-        timeStopped = false;
+        timeRunning = false;
 
         // Ready check
         ServerSend.GameState(2);

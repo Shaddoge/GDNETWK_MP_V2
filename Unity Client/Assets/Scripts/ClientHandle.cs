@@ -49,47 +49,6 @@ public class ClientHandle : MonoBehaviour
         GameManager.players[_id].LerpWheels(wheelPos, wheelRot);
     }
 
-    public static void PlayerPosition(Packet _packet)
-    {
-        if (GameManager.players.Count == 0) return;
-        //if (!Client.instance.IsConnected) return;
-        int _id = _packet.ReadInt();    
-        Vector3 _newPosition = _packet.ReadVector3();
-        //Debug.Log(GameManager.players.Count);
-
-        GameManager.players[_id].LerpPos(_newPosition);
-        //GameManager.players[_id].transform.position = _newPosition;
-    }
-
-    public static void PlayerRotation(Packet _packet)
-    {
-        if (GameManager.players.Count == 0) return;
-        //if (!Client.instance.IsConnected) return;
-        int _id = _packet.ReadInt();
-        Quaternion _newRotation = _packet.ReadQuaternion();
-
-        GameManager.players[_id].LerpRot(_newRotation);
-        //GameManager.players[_id].transform.rotation = _newRotation;
-    }
-
-    public static void PlayerWheels(Packet _packet)
-    {
-        if (GameManager.players.Count == 0) return;
-        int _id = _packet.ReadInt();
-        List<Vector3> wheelPos = new List<Vector3>();
-        List<Quaternion> wheelRot = new List<Quaternion>();
-
-        for(int i = 0; i < 4; i++)
-        {
-            Vector3 pos = _packet.ReadVector3();
-            Quaternion rot = _packet.ReadQuaternion();
-            wheelPos.Add(pos);
-            wheelRot.Add(rot);
-        }
-
-        GameManager.players[_id].LerpWheels(wheelPos, wheelRot);
-    }
-
     public static void PlayerState(Packet _packet)
     {
         if (GameManager.players.Count == 0) return;

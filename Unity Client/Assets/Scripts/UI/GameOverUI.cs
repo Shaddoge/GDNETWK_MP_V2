@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameOverUI : MonoBehaviour
 {
-    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject popup;
     [SerializeField] private Text headerText;
     [SerializeField] private Text timeText;
 
@@ -21,6 +21,6 @@ public class GameOverUI : MonoBehaviour
 
         headerText.text = $"You finished in {_displayPlace} place!" ;
         timeText.text = $"{_time.ToString("F2")}s";
-        gameOverPanel.SetActive(true);
+        popup.SetActive(true);
     }
 }

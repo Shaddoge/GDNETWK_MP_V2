@@ -85,7 +85,6 @@ public class Player : MonoBehaviour
         HandleMotor(_inputDirection.y);
         UpdateWheels();
 
-        Debug.Log(Vector3.Distance(oldPos, this.transform.position));
         if(Vector3.Distance(oldPos, this.transform.position) >= 0.002f)
         {
             ServerSend.PlayerMovement(this);

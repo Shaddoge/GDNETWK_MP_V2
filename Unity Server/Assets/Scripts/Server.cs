@@ -75,4 +75,17 @@ public class Server
     {
         tcpListener.Stop();
     }
+
+    public static int GetNumPlayers()
+    {
+        int _currPlayers = 0;
+        for (int i = 1; i <= MaxPlayers; i++)
+        {
+            if(clients[i].tcp.socket == null) continue;
+            if(clients[i].player == null) continue;
+
+            _currPlayers++;
+        }
+        return _currPlayers;
+    }
 }
