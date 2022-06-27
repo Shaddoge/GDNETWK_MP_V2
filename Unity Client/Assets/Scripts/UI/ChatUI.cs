@@ -4,27 +4,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ChatManager : MonoBehaviour
+public class ChatUI : MonoBehaviour
 {
-    public static ChatManager instance;
-
     [SerializeField] private GameObject chatInstance;
     [SerializeField] private InputField chatInput;
     [SerializeField] private Transform chatContent;
-    
-    private bool isFocused = false;
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Debug.Log("Removing the copy of ProfileManager instance");
-            Destroy(this);
-        }
-    }
 
     // Update is called once per frame
     void Update()

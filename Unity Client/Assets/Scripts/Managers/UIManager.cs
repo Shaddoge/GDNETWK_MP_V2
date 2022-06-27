@@ -7,13 +7,16 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
-    [SerializeField] private GameObject mainMenu;
-    [SerializeField] private GameObject LobbyPanel;
+    [Header("Panels")]
+    [SerializeField] private ConnectUI connectUI;
+    [SerializeField] private GameObject lobbyPanel;
+    [SerializeField] private GameOverUI gameOverUI;
+    
 
-    [Header("Input Fields")]
-    [SerializeField] private InputField[] ipFields;
-    [SerializeField] private InputField portField;
-    public InputField usernameField;
+    [Header("HUD")]
+    [SerializeField] private ChatUI chatUI;
+    [SerializeField] private FeedUI feedUI;
+    [SerializeField] private PositionUI posUI;
     
 
     private void Awake()
@@ -31,46 +34,46 @@ public class UIManager : MonoBehaviour
 
     public void ConnectToServer()
     {
-        mainMenu.SetActive(false);
+        connectUI.ConnectToServer();
 
-        foreach(InputField input in ipFields)
+        if(lobbyPanel != null)
         {
-            input.interactable = false;
+            lobbyPanel.SetActive(true);
         }
-
-        portField.interactable = false;
-        usernameField.interactable = false;
-        Client.instance.ConnectToServer(GetIpValue(), (portField.text != "") ? int.Parse(portField.text) : int.Parse(portField.placeholder.GetComponent<Text>().text));
-        if(LobbyPanel != null)
-        {
-            LobbyPanel.SetActive(true);
-        }   
     }
 
-    private string GetIpValue()
+    public string GetUsername()
     {
-        string _ip = "";
-
-        for (int i = 0; i < ipFields.Length; i++)
-        {
-            
-            if (ipFields[i].text != "")
-            {
-                _ip += ipFields[i].text;
-            }
-            else
-            {
-                _ip += ipFields[i].placeholder.GetComponent<Text>().text;
-            }
-            
-            _ip += (i != ipFields.Length - 1) ? "." : "";
-        }
-
-        return _ip;
+        return connectUI.usernameField.text;
     }
 
-    public void TimerStarted()
+    public void StartTimerStarted()
     {
-        LobbyPanel.GetComponent<StartGameTimer>().StartTimer();
+        lobbyPanel.GetComponent<StartGameTimer>().StartTimer();
+    }
+
+    public void GameOver(int _place, float _time)
+    {
+        gameOverUI.GameOverDisplay(_place, _time);
+    }
+
+    public void CreateFeed(string _text)
+    {
+        feedUI.CreateFeed(_text);
+    }
+
+    public void AddChatInstance(string _message)
+    {
+        chatUI.AddChatInstance(_message);
+    }
+
+    public void ChangePositionDisplay(int _place)
+    {
+        posUI.SetPosition(_place);
+    }
+
+    public void ChatboxToggle(bool _isActive)
+    {
+        chatUI.gameObject.SetActive(_isActive);
     }
 }

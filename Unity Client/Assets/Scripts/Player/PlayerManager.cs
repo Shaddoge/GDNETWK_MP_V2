@@ -25,13 +25,14 @@ public class PlayerManager : MonoBehaviour
 
     public void LerpPos(Vector3 _newPosition)
     {
-        //Vector3.MoveTowards(transform.position, _newPosition, Time.fixedDeltaTime);
-        StartCoroutine(LerpToNewPosition(_newPosition));
+        transform.position = _newPosition;
+        //StartCoroutine(LerpToNewPosition(_newPosition));
     }
 
     public void LerpRot(Quaternion _newRotation)
     {
-        StartCoroutine(LerpToNewRotation(_newRotation));
+        transform.rotation = _newRotation;
+        //StartCoroutine(LerpToNewRotation(_newRotation));
     }
 
     public void LerpWheels(List<Vector3> _newPositions, List<Quaternion> _newRotation)

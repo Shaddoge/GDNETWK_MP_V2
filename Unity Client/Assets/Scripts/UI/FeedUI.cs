@@ -3,24 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FeedManager : MonoBehaviour
+public class FeedUI: MonoBehaviour
 {
-    public static FeedManager instance;
-
     [SerializeField] private GameObject feedPrefab;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Debug.Log("Removing the copy of ProfileManager instance");
-            Destroy(this);
-        }
-    }
 
     public void CreateFeed(string _text)
     {

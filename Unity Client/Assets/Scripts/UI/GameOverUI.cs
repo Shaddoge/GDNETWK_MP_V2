@@ -3,26 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameOverManager : MonoBehaviour
+public class GameOverUI : MonoBehaviour
 {
-    public static GameOverManager instance;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private Text headerText;
     [SerializeField] private Text timeText;
-
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Debug.Log("Removing the copy of GameOverManager instance");
-            Destroy(this);
-        }
-    }
 
     public void GameOverDisplay(int _place, float _time)
     {

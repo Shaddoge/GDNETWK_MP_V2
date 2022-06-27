@@ -58,33 +58,13 @@ public class ServerSend
         }
     }
 
-    public static void PlayerPosition(Player _player)
+    public static void PlayerMovement(Player _player)
     {
-        using (Packet _packet = new Packet((int)ServerPackets.playerPosition))
+        using (Packet _packet = new Packet((int)ServerPackets.playerMovement))
         {
             _packet.Write(_player.id);
             _packet.Write(_player.transform.position);
-
-            SendTCPDataToAll(_packet);
-        }
-    }
-
-    public static void PlayerRotation(Player _player)
-    {
-        using (Packet _packet = new Packet((int)ServerPackets.playerRotation))
-        {
-            _packet.Write(_player.id);
             _packet.Write(_player.transform.rotation);
-
-            SendTCPDataToAll(_packet);
-        }
-    }
-
-    public static void PlayerWheels(Player _player)
-    {
-        using (Packet _packet = new Packet((int)ServerPackets.playerWheels))
-        {
-            _packet.Write(_player.id);
             foreach(WheelCollider wheel in _player.wheelColliders)
             {
                 Vector3 pos;
@@ -94,16 +74,6 @@ public class ServerSend
                 _packet.Write(pos);
                 _packet.Write(rot);
             }
-            SendTCPDataToAll(_packet);
-        }
-    }
-
-    public static void PlayerState(Player _player)
-    {
-        using (Packet _packet = new Packet((int)ServerPackets.playerState))
-        {
-            _packet.Write(_player.id);
-            _packet.Write(_player.isReady);
 
             SendTCPDataToAll(_packet);
         }

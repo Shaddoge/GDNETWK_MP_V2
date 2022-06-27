@@ -12,6 +12,7 @@ public class ClientHandle : MonoBehaviour
 
         Debug.Log($"Message from server: {_msg}");
         Client.instance.myId = _myId;
+        UIManager.instance.ChatboxToggle(true);
         // Send received packet
         ClientSend.WelcomeReceived();
     }
@@ -25,11 +26,34 @@ public class ClientHandle : MonoBehaviour
         GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
     }
 
+    public static void PlayerMovement(Packet _packet)
+    {
+        if (GameManager.players.Count == 0) return;
+
+        int _id = _packet.ReadInt();    
+        Vector3 _newPosition = _packet.ReadVector3();
+        Quaternion _newRotation = _packet.ReadQuaternion();
+        List<Vector3> wheelPos = new List<Vector3>();
+        List<Quaternion> wheelRot = new List<Quaternion>();
+
+        for(int i = 0; i < 4; i++)
+        {
+            Vector3 pos = _packet.ReadVector3();
+            Quaternion rot = _packet.ReadQuaternion();
+            wheelPos.Add(pos);
+            wheelRot.Add(rot);
+        }
+
+        GameManager.players[_id].LerpPos(_newPosition);
+        GameManager.players[_id].LerpRot(_newRotation);
+        GameManager.players[_id].LerpWheels(wheelPos, wheelRot);
+    }
+
     public static void PlayerPosition(Packet _packet)
     {
         if (GameManager.players.Count == 0) return;
         //if (!Client.instance.IsConnected) return;
-        int _id = _packet.ReadInt();
+        int _id = _packet.ReadInt();    
         Vector3 _newPosition = _packet.ReadVector3();
         //Debug.Log(GameManager.players.Count);
 
@@ -81,7 +105,7 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         
         if(_id != Client.instance.myId)
-            FeedManager.instance.CreateFeed($"{GameManager.players[_id].username} disconnected.");
+            UIManager.instance.CreateFeed($"{GameManager.players[_id].username} disconnected.");
 
         Destroy(GameManager.players[_id].gameObject);
         GameManager.players.Remove(_id);
@@ -92,7 +116,7 @@ public class ClientHandle : MonoBehaviour
     {
         int _place = _packet.ReadInt();
 
-        PositionManager.instance.SetPosition(_place);
+        UIManager.instance.ChangePositionDisplay(_place);
     }
 
     public static void PlayerFinished(Packet _packet)
@@ -111,11 +135,11 @@ public class ClientHandle : MonoBehaviour
 
         if(_id == Client.instance.myId)
         {
-            GameOverManager.instance.GameOverDisplay(_place, _time);
+            UIManager.instance.GameOver(_place, _time);
         }
         else
         {
-            FeedManager.instance.CreateFeed($"{GameManager.players[_id].username} finished in {_displayPlace}!");
+            UIManager.instance.CreateFeed($"{GameManager.players[_id].username} finished in {_displayPlace}!");
         }
         
     }
@@ -123,7 +147,7 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerChat(Packet _packet)
     {
         string _message = _packet.ReadString();
-        ChatManager.instance.AddChatInstance(_message);
+        UIManager.instance.AddChatInstance(_message);
     }
 
     public static void PlayerReady(Packet _packet)
@@ -141,7 +165,7 @@ public class ClientHandle : MonoBehaviour
         switch(_idState)
         {
             case 0: ProfileManager.instance.TimerStarted();
-                    UIManager.instance.TimerStarted(); break;
+                    UIManager.instance.StartTimerStarted(); break;
             case 1: break; // Display Timer
             case 2: break; // Reset Lobby
         }

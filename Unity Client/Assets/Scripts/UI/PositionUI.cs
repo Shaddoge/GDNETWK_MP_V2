@@ -3,23 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PositionManager : MonoBehaviour
+public class PositionUI : MonoBehaviour
 {
-    public static PositionManager instance;
     [SerializeField] private TextMeshProUGUI position;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Debug.Log("Removing the copy of ProfileManager instance");
-            Destroy(this);
-        }
-    }
 
     public void SetPosition(int _place)
     {

@@ -20,6 +20,9 @@ public class Player : MonoBehaviour
     private float currentBreakForce = 0f;
     private float currentSteerAngle = 0f;
     
+    private Vector3 oldPos;
+    private Quaternion oldRot;
+
     // Motor force
     private const float motorForce = 2000f;
     private const float breakForce = 4000f;
@@ -41,6 +44,8 @@ public class Player : MonoBehaviour
         this.isReady = false;
         this.inputs = new bool[5];
         this.nextCheckpoint = CheckpointHandler.instance.GetFirstCheckpoint();
+        this.oldPos = transform.position;
+        this.oldRot = transform.rotation;
     }
 
     public void ResetValues()
@@ -80,10 +85,14 @@ public class Player : MonoBehaviour
         HandleMotor(_inputDirection.y);
         UpdateWheels();
 
-        ServerSend.PlayerRotation(this);
-        ServerSend.PlayerPosition(this);
-        ServerSend.PlayerWheels(this);
-        ServerSend.PlayerState(this);
+        Debug.Log(Vector3.Distance(oldPos, this.transform.position));
+        if(Vector3.Distance(oldPos, this.transform.position) >= 0.002f)
+        {
+            ServerSend.PlayerMovement(this);
+        }
+
+        oldPos = this.transform.position;
+        oldRot = this.transform.rotation;
     }
 
     private void HandleMotor(float _direction)
