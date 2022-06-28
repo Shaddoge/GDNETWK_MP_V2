@@ -50,7 +50,7 @@ public class ProfileManager : MonoBehaviour
         for (int i = 0; i < PlayerProfileList.Count; i++)
         {
             PlayerProfileList[i].panel.GetComponent<Animator>().SetBool("IsShow", true);
-            if(PlayerProfileList[i].id == Client.instance.myId - 1)
+            if(PlayerProfileList[i].id == Client.instance.myId)
             {
                 PlayerProfileList[i].panel.transform.GetChild(1).GetComponent<Toggle>().isOn = false;
                 PlayerProfileList[i].panel.transform.GetChild(1).GetComponent<Toggle>().interactable = true;
