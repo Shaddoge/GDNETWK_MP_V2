@@ -1916,6 +1916,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Basic Track 3 Colliders
       objectReference: {fileID: 0}
+    - target: {fileID: 7700581506901105422, guid: 54122c1080541f04fbf59eb469bde0cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7700581506901105423, guid: 54122c1080541f04fbf59eb469bde0cf, type: 3}
       propertyPath: m_RootOrder
       value: 4
