@@ -38,8 +38,10 @@ public class PlayerController : MonoBehaviour
             Input.GetKey(KeyCode.Space)
         };
 
-        GenerateSFX(_inputs);
-
+        if (SoundManager.instance.inCountDownCarSFX != true)
+        {
+            GenerateSFX(_inputs);
+        }
         ClientSend.PlayerMovement(_inputs);
     }
 

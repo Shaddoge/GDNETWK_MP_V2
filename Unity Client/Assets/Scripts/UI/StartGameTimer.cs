@@ -41,6 +41,7 @@ public class StartGameTimer : MonoBehaviour
                 startTime = false;
                 timerUI.SetActive(false);
                 this.gameObject.SetActive(false);
+                SoundManager.instance.inCountDownCarSFX = false;
             }
 
             float time = currentTime / startingTime;
