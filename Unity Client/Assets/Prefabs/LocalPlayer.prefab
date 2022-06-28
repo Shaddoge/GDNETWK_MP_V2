@@ -10767,13 +10767,24 @@ MonoBehaviour:
   MusicSource: {fileID: 35636609124560737}
   CarSFXSource: {fileID: 5476444792002036278}
   ButtonSource: {fileID: 0}
-  BGM: {fileID: 8300000, guid: 5f70a30773fe1b24e88cbe993c7497bb, type: 3}
+  TrackList:
+  - {fileID: 8300000, guid: 2d8cb8f23d1e7814bb358300bc93495b, type: 3}
+  - {fileID: 8300000, guid: baad97216937fef43a26fe9bfd8fd42f, type: 3}
+  - {fileID: 8300000, guid: 3d5c19b71c0e00c4894a7abf485afcde, type: 3}
+  - {fileID: 8300000, guid: d0d8267e59593c344b030050ea19e87b, type: 3}
+  - {fileID: 8300000, guid: 2165cd2ed61afbb4985b569269d1825c, type: 3}
+  - {fileID: 8300000, guid: 5f70a30773fe1b24e88cbe993c7497bb, type: 3}
+  carstartSFX: {fileID: 8300000, guid: 6c4c352cd180e2f4984121db4d4604ec, type: 3}
   carRevSFX: {fileID: 8300000, guid: 5224dcc3deb94314783009f89bc14dd9, type: 3}
-  carDriveSFX: {fileID: 8300000, guid: 9c9a7229a3641fe43b8445cb1350c6b0, type: 3}
+  carDriveSFX: {fileID: 8300000, guid: e796717432bbf3a40920b3893ad930a5, type: 3}
   carBrakeSFX: {fileID: 8300000, guid: f6a40e9786688f948bdd747b2bee77fe, type: 3}
-  carIdleSFX: {fileID: 8300000, guid: d520a404a720928419ca3c79a5ef0a45, type: 3}
+  carIdleSFX: {fileID: 8300000, guid: cd4e7b0496be72f4c917782e66ae0ab1, type: 3}
   buttonSFX: {fileID: 0}
   inCountDownCarSFX: 0
+  inLobby: 1
+  maxTrackIndex: 0
+  currTrackIndex: 0
+  flag: 0
 --- !u!82 &35636609124560737
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10786,9 +10797,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5f70a30773fe1b24e88cbe993c7497bb, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.25
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -10880,11 +10891,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d520a404a720928419ca3c79a5ef0a45, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
