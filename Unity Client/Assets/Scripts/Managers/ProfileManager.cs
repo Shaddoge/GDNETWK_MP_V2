@@ -45,7 +45,7 @@ public class ProfileManager : MonoBehaviour
 
     public void ToggleCheck(int _id, bool _isReady)
     {
-        int profileIndex = GetProfileIndex(Client.instance.myId);
+        int profileIndex = GetProfileIndex(_id);
 
         if (profileIndex == -1) return;
 
