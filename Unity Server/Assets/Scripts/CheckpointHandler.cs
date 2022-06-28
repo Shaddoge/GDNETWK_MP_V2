@@ -80,7 +80,7 @@ public class CheckpointHandler : MonoBehaviour
             }
 
             Server.clients[i].player.placement = newPlacement;
-            Debug.Log($"Player {Server.clients[i].player.username}, Position: {newPlacement}");
+            //Debug.Log($"Player {Server.clients[i].player.username}, Position: {newPlacement}");
             ServerSend.PositionChanged(i, newPlacement);
         };
     }

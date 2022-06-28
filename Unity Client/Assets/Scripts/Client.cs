@@ -157,7 +157,11 @@ public class Client : MonoBehaviour
                     using (Packet _packet = new Packet(_packetBytes))
                     {
                         int _packetId = _packet.ReadInt();
-                        packetHandlers[_packetId](_packet);
+                        if (packetHandlers[_packetId] != null)
+                        {
+                            packetHandlers[_packetId](_packet);
+                        }
+                        
                     }
                 });
 

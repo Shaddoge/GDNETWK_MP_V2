@@ -502,7 +502,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh228216
+  m_Name: pb_Mesh470050
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1548,29 +1548,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7117335597313663876, guid: f35cf96e67e09f645b91130e18f0c79e, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 7117335597313663877, guid: f35cf96e67e09f645b91130e18f0c79e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7117335597313663877, guid: f35cf96e67e09f645b91130e18f0c79e, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7117335597313663877, guid: f35cf96e67e09f645b91130e18f0c79e, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7117335597313663877, guid: f35cf96e67e09f645b91130e18f0c79e, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7117335597313663877, guid: f35cf96e67e09f645b91130e18f0c79e, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7117335597313663877, guid: f35cf96e67e09f645b91130e18f0c79e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7117335597372827539, guid: f35cf96e67e09f645b91130e18f0c79e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2705,7 +2689,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh244882
+  m_Name: pb_Mesh486740
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

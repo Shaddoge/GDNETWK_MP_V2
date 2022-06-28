@@ -77,8 +77,8 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         int _place = _packet.ReadInt();
 
-        if(_id == Client.instance.myId)
-            UIManager.instance.ChangeMyPosition(_place);
+        
+        UIManager.instance.ChangeMyPosition(_place);
     }
 
     public static void PlayerFinished(Packet _packet)

@@ -93,10 +93,9 @@ public class ServerSend
     {
         using (Packet _packet = new Packet((int)ServerPackets.positionChanged))
         {
-            _packet.Write(_playerId);
             _packet.Write(_place);
 
-            SendTCPDataToAll(_packet);
+            SendTCPData(_playerId, _packet);
         }
     }
 
