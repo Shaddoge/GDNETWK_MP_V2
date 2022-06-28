@@ -56,8 +56,8 @@ public class ProfileManager : MonoBehaviour
     {
         for (int i = 0; i < PlayerProfileList.Count; i++)
         {
-            PlayerProfileList[i].panel.GetComponent<Animator>().SetBool("IsShow", true);
-            if(PlayerProfileList[i].id == Client.instance.myId)
+            
+            if (PlayerProfileList[i].id == Client.instance.myId)
             {
                 PlayerProfileList[i].panel.transform.GetChild(1).GetComponent<Toggle>().isOn = false;
                 PlayerProfileList[i].panel.transform.GetChild(1).GetComponent<Toggle>().interactable = true;
@@ -66,6 +66,11 @@ public class ProfileManager : MonoBehaviour
             {
                 PlayerProfileList[i].panel.transform.GetChild(1).gameObject.SetActive(false);
             }
+        }
+
+        for (int i = 0; i < PlayerProfileList.Count; i++)
+        {
+            PlayerProfileList[i].panel.GetComponent<Animator>().SetBool("IsShow", true);
         }
     }   
 
