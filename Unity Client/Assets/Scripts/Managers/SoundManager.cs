@@ -11,7 +11,8 @@ public class SoundManager : MonoBehaviour
     [Header("Button Source")]
     public AudioSource ButtonSource;
 
-    [Header("SFX List")]
+    [Header("Sound List")]
+    public AudioClip BGM;
     public AudioClip carRevSFX;
     public AudioClip carDriveSFX;
     public AudioClip carBrakeSFX;
@@ -20,6 +21,8 @@ public class SoundManager : MonoBehaviour
     public AudioClip buttonSFX;
 
     private bool canTriggerBrake = true;
+    public bool inCountDownCarSFX = false;
+
 
 
     public static SoundManager instance;
@@ -48,17 +51,30 @@ public class SoundManager : MonoBehaviour
         
     }
 
-   public void PlayButtonSFX()
+    public void PlayButtonSFX()
     {
         ButtonSource.PlayOneShot(buttonSFX);
+    }
+
+    public void PlayBGM()
+    {
+        MusicSource.clip = BGM;
+        MusicSource.Play();
     }
 
     public void PlayCarRev()
     {
         // play when car speeds up
-        if(CarSFXSource.isPlaying == false)
+        if (CarSFXSource.clip == carRevSFX && CarSFXSource.isPlaying)
         {
-            CarSFXSource.PlayOneShot(carRevSFX);
+            return;
+        }
+        else
+        {
+            Debug.Log("play rev");
+            CarSFXSource.Stop();
+            CarSFXSource.clip = carRevSFX;
+            CarSFXSource.Play();
             canTriggerBrake = true;
 
         }
