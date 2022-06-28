@@ -79,6 +79,7 @@ public class UIManager : MonoBehaviour
 
     public void StartTimerStarted()
     {
+        SoundManager.instance.inLobby = false;
         SoundManager.instance.inCountDownCarSFX = true;
         SoundManager.instance.PlayCarRev();
         lobbyPanel.GetComponent<StartGameTimer>().StartTimer();
