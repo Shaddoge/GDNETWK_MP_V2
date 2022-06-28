@@ -17,7 +17,7 @@ public class MinimapLine : MonoBehaviour
         for (int i = 0; i < nCount; i++)
         {
             Transform currDot = this.transform.GetChild(i).transform;
-            lineRenderer.SetPosition(i, new Vector3(currDot.position.x, 3f, currDot.position.z));
+            lineRenderer.SetPosition(i, new Vector3(currDot.position.x, -2f, currDot.position.z));
         }
     }
 }
