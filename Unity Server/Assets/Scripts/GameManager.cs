@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator FinishCountdown()
     {
         ServerSend.GameState(1); // Display Timer
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(20f);
 
         // Game end
         timeRunning = false;
