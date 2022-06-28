@@ -6,6 +6,9 @@ using TMPro;
 public class PositionUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI position;
+    [SerializeField] private PlayerPosition playerPosPrefab;
+
+    private List<PlayerPosition> playerPositions = new List<PlayerPosition>();
 
     public void SetPosition(int _place)
     {
@@ -18,5 +21,13 @@ public class PositionUI : MonoBehaviour
             case 4: position.text += "th"; break;
             default: position.text += "th"; break;
         }
+    }
+
+    public void UpdatePositionList()
+    {
+        /*for (int i = 0; i < playerPositions.Count; i++)
+        {
+            playerPositions[i].id
+        }*/
     }
 }

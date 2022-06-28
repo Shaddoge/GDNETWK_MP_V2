@@ -102,9 +102,14 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Position
-    public void ChangePositionDisplay(int _place)
+    public void ChangeMyPosition(int _place)
     {
         posUI.SetPosition(_place);
+    }
+    
+    public void UpdatePositionList()
+    {
+
     }
     #endregion
 
