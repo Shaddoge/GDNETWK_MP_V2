@@ -31,6 +31,13 @@ public class PlayerManager : MonoBehaviour
     public void LerpRot(Quaternion _newRotation)
     {
         //transform.rotation = _newRotation;
+
+        float angleDiff = Quaternion.Angle(transform.rotation, _newRotation);
+        if(angleDiff > 1f)
+        {
+            //Play skidding sound one shot
+        }
+
         StartCoroutine(LerpToNewRotation(_newRotation));
     }
 
