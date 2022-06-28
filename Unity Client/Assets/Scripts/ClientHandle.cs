@@ -103,6 +103,21 @@ public class ClientHandle : MonoBehaviour
         }
     }
 
+    // Player did not finish
+    public static void PlayerDNF(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+
+        if(_id != Client.instance.myId)
+        {
+            UIManager.instance.CreateDNFFeed(_id);
+        }
+        else
+        {
+            UIManager.instance.EndTimerHide();
+        }
+    }
+
     public static void PlayerChat(Packet _packet)
     {
         string _message = _packet.ReadString();

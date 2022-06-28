@@ -205,6 +205,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerDisconnected, ClientHandle.PlayerDisconnected },
             { (int)ServerPackets.positionChanged, ClientHandle.PositionChanged},
             { (int)ServerPackets.playerFinished, ClientHandle.PlayerFinished},
+            { (int)ServerPackets.playerDNF, ClientHandle.PlayerDNF },
             { (int)ServerPackets.playerChat, ClientHandle.PlayerChat },
             { (int)ServerPackets.playerReady, ClientHandle.PlayerReady },
             { (int)ServerPackets.gameState, ClientHandle.GameState },

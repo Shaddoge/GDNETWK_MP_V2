@@ -46,6 +46,7 @@ public class EndTimerUI : MonoBehaviour
     public void TimerStart()
     {
         this.GetComponent<Animator>().SetBool("IsShow", true);
+        currentTime = startingTime;
         timeRunning = true;
     }
 

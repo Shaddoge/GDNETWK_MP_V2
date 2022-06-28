@@ -111,6 +111,15 @@ public class ServerSend
         }
     }
 
+    public static void PlayerDNF(int _playerId)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.playerDNF))
+        {
+            _packet.Write(_playerId);
+            SendTCPDataToAll(_packet);
+        }
+    }
+
     public static void PlayerChat(string _message)
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerChat))

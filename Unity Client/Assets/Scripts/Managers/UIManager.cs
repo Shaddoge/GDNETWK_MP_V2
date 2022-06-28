@@ -111,6 +111,11 @@ public class UIManager : MonoBehaviour
         UIManager.instance.CreateFeed($"{GameManager.players[_id].username} finished in {_displayPlace}!");
     }
 
+    public void CreateDNFFeed(int _id)
+    {
+        UIManager.instance.CreateFeed($"{GameManager.players[_id].username} did not finish!");
+    }
+
     #endregion
 
     #region Chat

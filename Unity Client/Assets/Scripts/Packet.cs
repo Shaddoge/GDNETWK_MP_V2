@@ -13,6 +13,7 @@ public enum ServerPackets
     playerDisconnected,
     positionChanged,
     playerFinished,
+    playerDNF,
     playerChat,
     playerReady,
     gameState,
