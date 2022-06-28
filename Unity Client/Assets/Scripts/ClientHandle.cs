@@ -74,10 +74,8 @@ public class ClientHandle : MonoBehaviour
 
     public static void PositionChanged(Packet _packet)
     {
-        int _id = _packet.ReadInt();
         int _place = _packet.ReadInt();
 
-        
         UIManager.instance.ChangeMyPosition(_place);
     }
 
