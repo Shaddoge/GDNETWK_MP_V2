@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] spawns;
     [SerializeField] private GameObject[] tracks;
     private int currentTrack = 0;
+    public int CurrentTrack { get { return currentTrack; } }
+
 
     private void Awake()
     {

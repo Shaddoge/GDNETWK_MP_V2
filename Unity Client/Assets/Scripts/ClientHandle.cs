@@ -25,6 +25,7 @@ public class ClientHandle : MonoBehaviour
         Quaternion _rotation = _packet.ReadQuaternion();
         int _trackId = _packet.ReadInt();
 
+        GameManager.instance.ChangeTrack(_trackId);
         GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
         UIManager.instance.ToggleLobby(true);
     }

@@ -53,6 +53,7 @@ public class ServerSend
             _packet.Write(_player.username);
             _packet.Write(_player.transform.position);
             _packet.Write(_player.transform.rotation);
+            _packet.Write(GameManager.instance.CurrentTrack);
 
             SendTCPData(_toClient, _packet);
         }
