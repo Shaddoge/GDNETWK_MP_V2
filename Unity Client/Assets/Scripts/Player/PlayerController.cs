@@ -38,6 +38,26 @@ public class PlayerController : MonoBehaviour
             Input.GetKey(KeyCode.Space)
         };
 
+        GenerateSFX(_inputs);
+
         ClientSend.PlayerMovement(_inputs);
+    }
+
+    private void GenerateSFX(bool[] inputs)
+    {
+        // if moving forward or backward
+        if (inputs[0] == true || inputs[1] == true)
+        {
+            SoundManager.instance.PlayCarDrive();
+        }
+        else // not moving move or back
+        {
+            SoundManager.instance.PlayCarIdle();
+        }
+
+        if (inputs[4] ==true)
+        {
+            SoundManager.instance.PlayCarBrake();
+        }
     }
 }
