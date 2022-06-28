@@ -21,7 +21,6 @@ public class Player : MonoBehaviour
     private float currentSteerAngle = 0f;
     
     private Vector3 oldPos;
-    private Quaternion oldRot;
 
     // Motor force
     private const float motorForce = 2000f;
@@ -45,7 +44,6 @@ public class Player : MonoBehaviour
         this.inputs = new bool[5];
         this.nextCheckpoint = CheckpointHandler.instance.GetFirstCheckpoint();
         this.oldPos = transform.position;
-        this.oldRot = transform.rotation;
     }
 
     public void ResetValues()
@@ -53,6 +51,7 @@ public class Player : MonoBehaviour
         this.placement = 1;
         this.isFinished = false;
         this.isReady = false;
+        this.nextCheckpoint = CheckpointHandler.instance.GetFirstCheckpoint();
     }
 
     public void FixedUpdate()
@@ -85,13 +84,12 @@ public class Player : MonoBehaviour
         HandleMotor(_inputDirection.y);
         UpdateWheels();
 
-        if(Vector3.Distance(oldPos, this.transform.position) >= 0.001f)
+        /*if(Vector3.Distance(oldPos, this.transform.position) >= 0.001f)
         {
             ServerSend.PlayerMovement(this);
-        }
-
+        }*/
+        ServerSend.PlayerMovement(this);
         oldPos = this.transform.position;
-        oldRot = this.transform.rotation;
     }
 
     private void HandleMotor(float _direction)

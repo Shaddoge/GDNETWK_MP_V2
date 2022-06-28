@@ -25,7 +25,6 @@ public class CheckpointHandler : MonoBehaviour
 
     private void Start()
     {
-        numFinished = 0;
         trackSelected = 0;
 
         // Initialize checkpoints
@@ -50,8 +49,9 @@ public class CheckpointHandler : MonoBehaviour
     {
         for (int i = 1; i <= Server.MaxPlayers; i++)
         {
-            if(Server.clients[i].player == null) continue;
-            int newPlacement = 1 + numFinished;
+            if (Server.clients[i].player == null) continue;
+            if (Server.clients[i].player.isFinished) continue;
+            int newPlacement = 1;
 
             for (int j = 1; j <= Server.MaxPlayers; j++)
             {
