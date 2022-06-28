@@ -96,7 +96,7 @@ public class ProfileManager : MonoBehaviour
     {
         for (int i = 0; i < PlayerProfileList.Count; i++)
         {
-            if (PlayerProfileList[i].id != Client.instance.myId)
+            if (PlayerProfileList[i].id == _id)
             {
                 Destroy(PlayerProfileList[i].panel);
                 PlayerProfileList.RemoveAt(i);
