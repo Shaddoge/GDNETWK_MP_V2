@@ -126,6 +126,16 @@ public class GameManager : MonoBehaviour
         ServerSend.GameState(2);
     }
 
+    public Vector3 GetCurrentSpawnPos(int _playerId)
+    {
+        return spawns[currentTrack].transform.GetChild(_playerId - 1).position;
+    }
+
+    public Quaternion GetCurrentSpawnRot(int _playerId)
+    {
+        return spawns[currentTrack].transform.GetChild(_playerId - 1).rotation;
+    }
+
     public void RepositionPlayers(int _trackId)
     {
         if(_trackId >= spawns.Length || _trackId < 0) return;

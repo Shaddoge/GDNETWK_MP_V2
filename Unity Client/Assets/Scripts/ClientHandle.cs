@@ -23,6 +23,8 @@ public class ClientHandle : MonoBehaviour
         string _username = _packet.ReadString();
         Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
+        int _trackId = _packet.ReadInt();
+
         GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
         UIManager.instance.ToggleLobby(true);
     }
@@ -32,6 +34,9 @@ public class ClientHandle : MonoBehaviour
         if (GameManager.players.Count == 0) return;
 
         int _id = _packet.ReadInt();    
+
+        if (GameManager.players[_id] == null) return;
+
         Vector3 _newPosition = _packet.ReadVector3();
         Quaternion _newRotation = _packet.ReadQuaternion();
         List<Vector3> wheelPos = new List<Vector3>();
@@ -57,6 +62,7 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         bool _isReady = _packet.ReadBool();
 
+        if (GameManager.players[_id] == null) return;
         GameManager.players[_id].isReady = _isReady;
     }
 
@@ -85,21 +91,13 @@ public class ClientHandle : MonoBehaviour
         int _place = _packet.ReadInt();
         float _time = _packet.ReadFloat();
 
-        string _displayPlace = _place.ToString();
-        switch(_place)
-        {
-            case 1: _displayPlace += "st"; break;
-            case 2: _displayPlace += "nd"; break;
-            default: _displayPlace += "th"; break;
-        }
-
         if(_id == Client.instance.myId)
         {
             UIManager.instance.GameOver(_place, _time);
         }
         else
         {
-            UIManager.instance.CreateFeed($"{GameManager.players[_id].username} finished in {_displayPlace}!");
+            UIManager.instance.CreateFinishFeed(_id, _place);
         }
         
     }

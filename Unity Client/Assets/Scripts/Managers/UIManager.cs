@@ -43,6 +43,11 @@ public class UIManager : MonoBehaviour
     }
 
     #region End/Restart
+    public void EndTimerStart()
+    {
+
+    }
+
     public void GameOver(int _place, float _time)
     {
         posUI.gameObject.SetActive(false);
@@ -87,6 +92,19 @@ public class UIManager : MonoBehaviour
         feedUI.CreateFeed(_text);
     }
 
+    public void CreateFinishFeed(int _id, int _place)
+    {
+        string _displayPlace = _place.ToString();
+        switch(_place)
+        {
+            case 1: _displayPlace += "st"; break;
+            case 2: _displayPlace += "nd"; break;
+            default: _displayPlace += "th"; break;
+        }
+
+        UIManager.instance.CreateFeed($"{GameManager.players[_id].username} finished in {_displayPlace}!");
+    }
+
     #endregion
 
     #region Chat
@@ -105,11 +123,6 @@ public class UIManager : MonoBehaviour
     public void ChangeMyPosition(int _place)
     {
         posUI.SetPosition(_place);
-    }
-    
-    public void UpdatePositionList()
-    {
-
     }
     #endregion
 
