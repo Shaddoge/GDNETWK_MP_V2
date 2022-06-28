@@ -94,13 +94,28 @@ public class ClientHandle : MonoBehaviour
 
         if(_id == Client.instance.myId)
         {
+            UIManager.instance.EndTimerHide();
             UIManager.instance.GameOver(_place, _time);
         }
         else
         {
             UIManager.instance.CreateFinishFeed(_id, _place);
         }
-        
+    }
+
+    // Player did not finish
+    public static void PlayerDNF(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+
+        if(_id != Client.instance.myId)
+        {
+            UIManager.instance.CreateDNFFeed(_id);
+        }
+        else
+        {
+            UIManager.instance.EndTimerHide();
+        }
     }
 
     public static void PlayerChat(Packet _packet)
@@ -125,7 +140,7 @@ public class ClientHandle : MonoBehaviour
         {
             case 0: ProfileManager.instance.TimerStarted();
                     UIManager.instance.StartTimerStarted(); break;
-            case 1: break; // Display Timer
+            case 1: UIManager.instance.EndTimerStarted(); break; // Display Timer
             case 2: UIManager.instance.NewTrack(); break; // Reset Lobby
         }
         Debug.Log(_idState);

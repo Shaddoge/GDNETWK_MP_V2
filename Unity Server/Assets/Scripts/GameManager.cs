@@ -80,13 +80,13 @@ public class GameManager : MonoBehaviour
     public IEnumerator FinishCountdown()
     {
         ServerSend.GameState(1); // Display Timer
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(20f);
 
         // Game end
         timeRunning = false;
-
-        // Should send end screen
         ToggleAllPlayerMove(false);
+        // Send DNF
+        CheckPlayersDNF();
 
         yield return new WaitForSeconds(5f);
         
@@ -163,6 +163,18 @@ public class GameManager : MonoBehaviour
             if (Server.clients[i].tcp.socket != null)
             {
                 Server.clients[i].player.canMove = _canMove;
+            }
+        }
+    }
+
+    public void CheckPlayersDNF()
+    {
+        for (int i = 1; i <= Server.MaxPlayers; i++)
+        {
+            if (Server.clients[i].tcp.socket != null)
+            {
+                if (!Server.clients[i].player.isFinished)
+                    ServerSend.PlayerDNF(i);
             }
         }
     }

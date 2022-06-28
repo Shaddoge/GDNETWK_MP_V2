@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private ChatUI chatUI;
     [SerializeField] private FeedUI feedUI;
     [SerializeField] private PositionUI posUI;
-    
+    [SerializeField] private EndTimerUI endTimerUI;
 
     private void Awake()
     {
@@ -43,9 +43,15 @@ public class UIManager : MonoBehaviour
     }
 
     #region End/Restart
-    public void EndTimerStart()
+    public void EndTimerStarted()
     {
+        if (gameOverUI.IsDisplayed) return;
+        endTimerUI.TimerStart();
+    }
 
+    public void EndTimerHide()
+    {
+        endTimerUI.TimerHide();
     }
 
     public void GameOver(int _place, float _time)
@@ -106,6 +112,11 @@ public class UIManager : MonoBehaviour
         }
 
         UIManager.instance.CreateFeed($"{GameManager.players[_id].username} finished in {_displayPlace}!");
+    }
+
+    public void CreateDNFFeed(int _id)
+    {
+        UIManager.instance.CreateFeed($"{GameManager.players[_id].username} did not finish!");
     }
 
     #endregion
