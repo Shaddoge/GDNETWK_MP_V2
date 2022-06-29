@@ -14,6 +14,8 @@ public class PlayerManager : MonoBehaviour
     
     [SerializeField] private TextMeshProUGUI displayName;
 
+    [SerializeField] private CarSFX carSFX;
+
     private float skidTime = 0f;
     private bool isSkidding = true;
     private bool tireFXActive = true;
@@ -102,13 +104,13 @@ public class PlayerManager : MonoBehaviour
             {
                 isSkidding = true;
                 skidTime = 0f;
-                SoundManager.instance.PlayCarSkid();
+                carSFX.PlayCarSkid(); //Play skidding sound one shot
+                
                 for (int i = 0; i < tireFx.Length; i++)
                 {
                     tireFx[i].GetComponent<ParticleSystem>().Play();
                     tireFx[i].GetComponent<TrailRenderer>().emitting = true;
                 }
-                //Play skidding sound one shot
             }
         }
 
