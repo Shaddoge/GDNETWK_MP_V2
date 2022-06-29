@@ -50,8 +50,11 @@ public class CheckpointHandler : MonoBehaviour
         for (int i = 1; i <= Server.MaxPlayers; i++)
         {
             if (Server.clients[i].player == null) continue;
-            if (Server.clients[i].player.isFinished) continue;
-            int newPlacement = 1;
+            if (Server.clients[i].player.isFinished) {
+                numFinished++;
+                continue;
+            }
+            int newPlacement = 1 + numFinished;
 
             for (int j = 1; j <= Server.MaxPlayers; j++)
             {
