@@ -15,31 +15,19 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private List <AudioClip> TrackList;
 
     [Header("Car SFX")]
-    [SerializeField] private AudioClip carstartSFX;
     [SerializeField] private AudioClip carRevSFX;
-    [SerializeField] private AudioClip carDriveSFX;
-    [SerializeField] private AudioClip carBrakeSFX;
-    [SerializeField] private AudioClip carIdleSFX;
+    
+    [SerializeField] private AudioClip radioSFX;
 
     [Header("Button SFX")]
     [SerializeField] private AudioClip buttonSFX;
 
-
-    private bool canTriggerBrake = true;
     public bool inCountDownCarSFX = false;
 
-    public bool inLobby = true;
-
-    [SerializeField] int maxTrackIndex=0;
+    [SerializeField] int maxTrackIndex = 0;
     [SerializeField] int currTrackIndex = 0;
 
     [SerializeField] bool flag = false;
-
-
-
-
-
-
 
     public static SoundManager instance;
     private void Awake()
@@ -50,7 +38,7 @@ public class SoundManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Removing the copy of ProfileManager instance");
+            Debug.Log("Removing the copy of SoundManager instance");
             Destroy(this);
         }
     }
@@ -58,48 +46,24 @@ public class SoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxTrackIndex = TrackList.Count;
+        maxTrackIndex = TrackList.Count - 1;
 
         //// play the first track in the list
         MusicSource.clip = TrackList[currTrackIndex];
         MusicSource.Play();
-        CarSFXSource.loop = false;
-
-
-        // play the car start sfx
-        CarSFXSource.Stop();
-        CarSFXSource.clip = carstartSFX;
-        CarSFXSource.Play();
         CarSFXSource.loop = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (inLobby == true)
-        {
-            if(CarSFXSource.isPlaying == false)
-            {
-                Debug.Log("Append Track");
-                CarSFXSource.clip = carIdleSFX; // transition to idle sfx 
-                CarSFXSource.Play();
-                CarSFXSource.loop = true;
-            }
-        }
-
         CheckRadioInput(); // for player input
-        QueueRadio();// auto que
-
+        QueueRadio();// auto queue
     }
 
     public void PlayButtonSFX()
     {
         ButtonSource.PlayOneShot(buttonSFX);
-    }
-
-    public void PlayBGM()
-    {
-        
     }
 
     public void PlayCarRev()
@@ -115,70 +79,16 @@ public class SoundManager : MonoBehaviour
             CarSFXSource.Stop();
             CarSFXSource.clip = carRevSFX;
             CarSFXSource.Play();
-            canTriggerBrake = true;
 
         }
     }
 
-    public void PlayCarDrive()
+    private void QueueRadio()
     {
-        // dont play when is already playing
-        if (CarSFXSource.clip == carDriveSFX && CarSFXSource.isPlaying)
+        if (!MusicSource.isPlaying)
         {
-            return;
-        }
-        else
-        {
-            Debug.Log("play drive");
-            CarSFXSource.Stop();
-            CarSFXSource.clip = carDriveSFX;
-            CarSFXSource.Play();
-            canTriggerBrake = true;
-
-        }
-    }
-    public void PlayCarIdle()
-    {
-        if (CarSFXSource.clip == carIdleSFX && CarSFXSource.isPlaying)
-        {
-            return;
-        }
-        else
-        {
-            CarSFXSource.Stop();
-            Debug.Log("play Idle");
-            CarSFXSource.clip = carIdleSFX;
-            CarSFXSource.Play();
-            canTriggerBrake = true;
-
-        }
-    }
-
-    public void PlayCarBrake()
-    {
-        if (CarSFXSource.clip == carBrakeSFX && CarSFXSource.isPlaying)
-        {
-            return;
-        }
-
-        if (canTriggerBrake == true)
-        {
-            Debug.Log(CarSFXSource.clip.name);
-            // play when car is max speed
-            CarSFXSource.PlayOneShot(carBrakeSFX);
-            canTriggerBrake = false;
-        }
-        
-    }
-
-    public void QueueRadio()
-    {
-        // check if track is stil playing
-        if (MusicSource.isPlaying == false)
-        {
-            currTrackIndex++; // next track in list
-            PlayTrack();// play track based on index
-
+            currTrackIndex++;
+            PlayTrack();
         }
     }
 
@@ -188,21 +98,53 @@ public class SoundManager : MonoBehaviour
         {
             currTrackIndex--;
             flag = false;
-            PlayTrack();// play track based on index
+            MusicSource.clip = radioSFX;
+            MusicSource.Play();
         }
         else if (Input.GetKeyDown(KeyCode.E) && flag == true)
         {
             currTrackIndex++;
             flag = false;
-            PlayTrack();// play track based on index
+            MusicSource.clip = radioSFX;
+            MusicSource.Play();
         }
-        else if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.M) && flag == true)
+        {
+            flag = false;
+            MusicSource.mute = !MusicSource.mute;
+            if (MusicSource.mute)
+            {
+                Debug.Log("Radio Off");
+            }
+            else
+            {
+                Debug.Log("Radio On");
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Comma) && flag == true)
+        {
+            flag = false;
+            float musicVol = MusicSource.volume;
+            musicVol -= 0.01f;
+            AdjustMusicVolume(musicVol);
+        }
+        else if (Input.GetKeyDown(KeyCode.Period) && flag == true)
+        {
+            flag = false;
+            float musicVol = MusicSource.volume;
+            musicVol += 0.01f;
+            AdjustMusicVolume(musicVol);
+        }
+
+        else if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.M) || Input.GetKeyUp(KeyCode.Comma) || Input.GetKeyUp(KeyCode.Period))
         {
             flag = true;
         }
 
-        
-
+        if (MusicSource.clip == radioSFX && !MusicSource.isPlaying)
+        {
+            PlayTrack();
+        }
     }
 
     public void PlayTrack()
@@ -211,14 +153,23 @@ public class SoundManager : MonoBehaviour
         {
             currTrackIndex = 0;
         }
-        else if (currTrackIndex <0)
+        else if (currTrackIndex < 0)
         {
-            currTrackIndex = maxTrackIndex-1;
+            currTrackIndex = maxTrackIndex - 1;
         }
         // next track
 
         MusicSource.clip = TrackList[currTrackIndex];
         Debug.Log("Now Playing: " + TrackList[currTrackIndex].name);
         MusicSource.Play();
+    }
+
+    private void AdjustMusicVolume(float newVolume)
+    {
+        newVolume = Mathf.Clamp(newVolume, 0, 1);
+
+        MusicSource.volume = newVolume;
+
+        Debug.Log($"Radio Volume: {newVolume * 100}");
     }
 }

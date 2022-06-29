@@ -8,13 +8,17 @@ public class PlayerManager : MonoBehaviour
     public int id;
     public string username;
     public bool isReady = false;
+    
     [SerializeField] private Transform[] wheels = new Transform[4];
     [SerializeField] private GameObject[] tireFx = new GameObject[4];
     
     [SerializeField] private TextMeshProUGUI displayName;
 
+    [SerializeField] private CarSFX carSFX;
+
     private float skidTime = 0f;
     private bool isSkidding = true;
+    private bool tireFXActive = true;
 
     public void Initialize(int _id, string _username)
     {
@@ -44,6 +48,15 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void ToggleTireFXActive(bool _flag)
+    {
+        tireFXActive = _flag;
+        for (int i = 0; i < tireFx.Length; i++)
+        {
+            tireFx[i].SetActive(tireFXActive);
+        }
+    }
+
     public void LerpPos(Vector3 _newPosition)
     {
         //transform.position = _newPosition;
@@ -53,21 +66,6 @@ public class PlayerManager : MonoBehaviour
     public void LerpRot(Quaternion _newRotation)
     {
         //transform.rotation = _newRotation;
-
-        float angleDiff = Quaternion.Angle(transform.rotation, _newRotation);
-        
-        if(angleDiff > 1f)
-        {
-            isSkidding = true;
-            skidTime = 0f;
-            for (int i = 0; i < tireFx.Length; i++)
-            {
-                tireFx[i].GetComponent<ParticleSystem>().Play();
-                tireFx[i].GetComponent<TrailRenderer>().emitting = true;
-            }
-            //Play skidding sound one shot
-        }
-
         StartCoroutine(LerpToNewRotation(_newRotation));
     }
 
@@ -95,9 +93,26 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator LerpToNewRotation(Quaternion _newRotation)
     {
-        float oldTime = Time.time;
         float currTime = 0f;
         Quaternion oldRot = transform.rotation;
+
+        float angleDiff = Quaternion.Angle(oldRot, _newRotation);
+        
+        if (tireFXActive)
+        {
+            if (angleDiff > 0.9f)
+            {
+                isSkidding = true;
+                skidTime = 0f;
+                carSFX.PlayCarSkid(); //Play skidding sound one shot
+                
+                for (int i = 0; i < tireFx.Length; i++)
+                {
+                    tireFx[i].GetComponent<ParticleSystem>().Play();
+                    tireFx[i].GetComponent<TrailRenderer>().emitting = true;
+                }
+            }
+        }
 
         while(currTime < Time.fixedDeltaTime)
         {
@@ -111,7 +126,6 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator LerpAllWheels(List<Vector3> _newPositions, List<Quaternion> _newRotations)
     {
-        float oldTime = Time.time;
         float currTime = 0f;
 
         Vector3[] oldPos = new Vector3[4];
