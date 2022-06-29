@@ -14,6 +14,8 @@ public class PlayerManager : MonoBehaviour
     
     [SerializeField] private TextMeshProUGUI displayName;
 
+    [SerializeField] private CarSFX carSFX;
+
     private float skidTime = 0f;
     private bool isSkidding = true;
     private bool tireFXActive = true;
@@ -64,6 +66,23 @@ public class PlayerManager : MonoBehaviour
     public void LerpRot(Quaternion _newRotation)
     {
         //transform.rotation = _newRotation;
+        if (tireFXActive)
+        {
+            float angleDiff = Quaternion.Angle(transform.rotation, _newRotation);
+            if (angleDiff > 0.9f)
+            {
+                isSkidding = true;
+                skidTime = 0f;
+                carSFX.PlayCarSkid(); //Play skidding sound one shot
+                
+                for (int i = 0; i < tireFx.Length; i++)
+                {
+                    tireFx[i].GetComponent<ParticleSystem>().Play();
+                    tireFx[i].GetComponent<TrailRenderer>().emitting = true;
+                }
+            }
+        }
+
         StartCoroutine(LerpToNewRotation(_newRotation));
     }
 
@@ -74,7 +93,6 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator LerpToNewPosition(Vector3 _newPosition)
     {
-        float oldTime = Time.time;
         float currTime = 0f;
         Vector3 oldPos = transform.position;
 
@@ -93,24 +111,6 @@ public class PlayerManager : MonoBehaviour
     {
         float currTime = 0f;
         Quaternion oldRot = transform.rotation;
-
-        float angleDiff = Quaternion.Angle(oldRot, _newRotation);
-        
-        if (tireFXActive)
-        {
-            if (angleDiff > 0.9f)
-            {
-                isSkidding = true;
-                skidTime = 0f;
-                SoundManager.instance.PlayCarSkid();
-                for (int i = 0; i < tireFx.Length; i++)
-                {
-                    tireFx[i].GetComponent<ParticleSystem>().Play();
-                    tireFx[i].GetComponent<TrailRenderer>().emitting = true;
-                }
-                //Play skidding sound one shot
-            }
-        }
 
         while(currTime < Time.fixedDeltaTime)
         {

@@ -5,27 +5,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //private bool startMovement = false;
+    private CarSFX carSFX;
+
+    private void Start()
+    {
+        carSFX = this.GetComponent<CarSFX>();
+    }
 
     private void FixedUpdate()
     {
-        /*if (GameManager.instance.startGame)
-        {
-            StartCoroutine("StartGame");
-        }*/
-
         SendInputToServer();
-
-        /*if (startMovement)
-        {
-            
-        }*/
     }
-
-    /*IEnumerator StartGame()
-    {
-        yield return new WaitForSeconds(5f);
-        startMovement = true;
-    }*/
 
     private void SendInputToServer()
     {
@@ -38,9 +28,16 @@ public class PlayerController : MonoBehaviour
             Input.GetKey(KeyCode.Space)
         };
 
-        if (SoundManager.instance.inCountDownCarSFX != true)
+        if (!SoundManager.instance.inCountDownCarSFX)
         {
-            GenerateSFX(_inputs);
+            if (CheckIfInput(_inputs))
+            {
+                GenerateSFX(_inputs);
+            }
+            else if (carSFX.IsPlaying())
+            {
+                carSFX.Stop();
+            }
         }
         ClientSend.PlayerMovement(_inputs);
     }
@@ -48,18 +45,24 @@ public class PlayerController : MonoBehaviour
     private void GenerateSFX(bool[] inputs)
     {
         // if moving forward or backward
-        if (inputs[0] == true || inputs[1] == true)
+        if (inputs[0] || inputs[1])
         {
-            SoundManager.instance.PlayCarDrive();
-        }
-        else // not moving move or back
-        {
-            SoundManager.instance.PlayCarIdle();
+            carSFX.PlayCarDrive();
         }
 
-        if (inputs[4] ==true)
+        if (inputs[4])
         {
-            SoundManager.instance.PlayCarBrake();
+            carSFX.PlayCarBrake();
         }
+    }
+
+    private bool CheckIfInput(bool[] inputs)
+    {
+        for (int i = 0; i < inputs.Length; i++)
+        {
+            if (inputs[i])
+                return true;
+        }
+        return false;
     }
 }

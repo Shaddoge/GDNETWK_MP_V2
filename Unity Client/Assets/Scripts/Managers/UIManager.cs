@@ -85,8 +85,8 @@ public class UIManager : MonoBehaviour
 
     public void StartTimerStarted()
     {
-        SoundManager.instance.inLobby = false;
-        SoundManager.instance.inCountDownCarSFX = true;
+        //SoundManager.instance.inLobby = false;
+        //SoundManager.instance.inCountDownCarSFX = true;
         SoundManager.instance.PlayCarRev();
         lobbyPanel.GetComponent<StartGameTimer>().StartTimer();
         lobbyPanel.GetComponent<Animator>().SetBool("IsShow", false);
@@ -108,6 +108,7 @@ public class UIManager : MonoBehaviour
         {
             case 1: _displayPlace += "st"; break;
             case 2: _displayPlace += "nd"; break;
+            case 3: _displayPlace += "rd"; break;
             default: _displayPlace += "th"; break;
         }
 

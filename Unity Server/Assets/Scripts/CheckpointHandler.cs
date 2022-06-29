@@ -8,7 +8,6 @@ public class CheckpointHandler : MonoBehaviour
     [SerializeField] private List<GameObject> tracks = new List<GameObject>();
     private List<Checkpoint> checkpoints = new List<Checkpoint>();
     public int numFinished = 0;
-    private int trackSelected = 0;
 
     private void Awake()
     {
@@ -25,7 +24,6 @@ public class CheckpointHandler : MonoBehaviour
 
     private void Start()
     {
-        trackSelected = 0;
 
         // Initialize checkpoints
         foreach(GameObject track in tracks)

@@ -35,13 +35,12 @@ public class ClientHandle : MonoBehaviour
         if (GameManager.players.Count == 0) return;
 
         int _id = _packet.ReadInt();    
-
-        if (GameManager.players[_id] == null) return;
-
         Vector3 _newPosition = _packet.ReadVector3();
         Quaternion _newRotation = _packet.ReadQuaternion();
         List<Vector3> wheelPos = new List<Vector3>();
         List<Quaternion> wheelRot = new List<Quaternion>();
+
+        if (GameManager.players[_id] == null) return;
 
         for(int i = 0; i < 4; i++)
         {
