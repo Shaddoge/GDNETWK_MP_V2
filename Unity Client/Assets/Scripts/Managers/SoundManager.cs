@@ -207,13 +207,13 @@ public class SoundManager : MonoBehaviour
 
     public void PlayTrack()
     {
-        if (currTrackIndex >= maxTrackIndex)
+        if (currTrackIndex > maxTrackIndex)
         {
             currTrackIndex = 0;
         }
-        else if (currTrackIndex <=0)
+        else if (currTrackIndex <0)
         {
-            currTrackIndex = maxTrackIndex;
+            currTrackIndex = maxTrackIndex-1;
         }
         // next track
 
