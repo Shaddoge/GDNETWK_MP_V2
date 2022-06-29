@@ -8,7 +8,6 @@ public class CheckpointHandler : MonoBehaviour
     [SerializeField] private List<GameObject> tracks = new List<GameObject>();
     private List<Checkpoint> checkpoints = new List<Checkpoint>();
     public int numFinished = 0;
-    private int trackSelected = 0;
 
     private void Awake()
     {
@@ -25,7 +24,6 @@ public class CheckpointHandler : MonoBehaviour
 
     private void Start()
     {
-        trackSelected = 0;
 
         // Initialize checkpoints
         foreach(GameObject track in tracks)
@@ -50,11 +48,8 @@ public class CheckpointHandler : MonoBehaviour
         for (int i = 1; i <= Server.MaxPlayers; i++)
         {
             if (Server.clients[i].player == null) continue;
-            if (Server.clients[i].player.isFinished) {
-                numFinished++;
-                continue;
-            }
-            int newPlacement = 1 + numFinished;
+            if (Server.clients[i].player.isFinished) continue;
+            int newPlacement = 1;
 
             for (int j = 1; j <= Server.MaxPlayers; j++)
             {
