@@ -28,8 +28,9 @@ public class Checkpoint : MonoBehaviour
                 Player player = other.GetComponent<Player>();
                 if (player.isFinished) return;
 
-                CheckpointHandler.instance.numFinished++;
+                player.isFinished = true;
                 player.canMove = false;
+                CheckpointHandler.instance.numFinished++;
 
                 if(CheckpointHandler.instance.numFinished >= Server.GetNumPlayers())
                 {
