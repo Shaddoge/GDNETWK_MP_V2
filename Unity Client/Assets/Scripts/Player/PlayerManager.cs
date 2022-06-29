@@ -66,6 +66,22 @@ public class PlayerManager : MonoBehaviour
     public void LerpRot(Quaternion _newRotation)
     {
         //transform.rotation = _newRotation;
+        if (tireFXActive)
+        {
+            if (angleDiff > 0.9f)
+            {
+                isSkidding = true;
+                skidTime = 0f;
+                carSFX.PlayCarSkid(); //Play skidding sound one shot
+                
+                for (int i = 0; i < tireFx.Length; i++)
+                {
+                    tireFx[i].GetComponent<ParticleSystem>().Play();
+                    tireFx[i].GetComponent<TrailRenderer>().emitting = true;
+                }
+            }
+        }
+
         StartCoroutine(LerpToNewRotation(_newRotation));
     }
 
@@ -96,22 +112,6 @@ public class PlayerManager : MonoBehaviour
         Quaternion oldRot = transform.rotation;
 
         float angleDiff = Quaternion.Angle(oldRot, _newRotation);
-        
-        if (tireFXActive)
-        {
-            if (angleDiff > 0.9f)
-            {
-                isSkidding = true;
-                skidTime = 0f;
-                carSFX.PlayCarSkid(); //Play skidding sound one shot
-                
-                for (int i = 0; i < tireFx.Length; i++)
-                {
-                    tireFx[i].GetComponent<ParticleSystem>().Play();
-                    tireFx[i].GetComponent<TrailRenderer>().emitting = true;
-                }
-            }
-        }
 
         while(currTime < Time.fixedDeltaTime)
         {
