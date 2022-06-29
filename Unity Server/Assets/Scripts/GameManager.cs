@@ -87,7 +87,12 @@ public class GameManager : MonoBehaviour
         ToggleAllPlayerMove(false);
         // Send DNF
         CheckPlayersDNF();
+        
+        StartCoroutine(AllFinished());
+    }
 
+    public IEnumerator AllFinished()
+    {
         yield return new WaitForSeconds(5f);
         
         currentTrack++;

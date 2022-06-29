@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4661435515762813124}
   - component: {fileID: 9199350610663212508}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tree_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,9 +107,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6725635405691500425, guid: 1dc2f6d14c43400449a804662817f614, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1dc2f6d14c43400449a804662817f614, type: 3}
       propertyPath: m_Name
       value: Tree02
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1dc2f6d14c43400449a804662817f614, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640581555557073634, guid: 1dc2f6d14c43400449a804662817f614, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4742473837712756890, guid: 1dc2f6d14c43400449a804662817f614, type: 3}
       propertyPath: m_FadeMode
@@ -118,6 +130,14 @@ PrefabInstance:
     - target: {fileID: 4742473837712756890, guid: 1dc2f6d14c43400449a804662817f614, type: 3}
       propertyPath: m_AnimateCrossFading
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347647402349989535, guid: 1dc2f6d14c43400449a804662817f614, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8404560632805375372, guid: 1dc2f6d14c43400449a804662817f614, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dc2f6d14c43400449a804662817f614, type: 3}

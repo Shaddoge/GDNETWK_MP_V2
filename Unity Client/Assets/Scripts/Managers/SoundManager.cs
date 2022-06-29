@@ -19,6 +19,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip carRevSFX;
     [SerializeField] private AudioClip carDriveSFX;
     [SerializeField] private AudioClip carBrakeSFX;
+    [SerializeField] private AudioClip carSkidSFX;
     [SerializeField] private AudioClip carIdleSFX;
 
     [Header("Button SFX")]
@@ -30,16 +31,10 @@ public class SoundManager : MonoBehaviour
 
     public bool inLobby = true;
 
-    [SerializeField] int maxTrackIndex=0;
+    [SerializeField] int maxTrackIndex = 0;
     [SerializeField] int currTrackIndex = 0;
 
     [SerializeField] bool flag = false;
-
-
-
-
-
-
 
     public static SoundManager instance;
     private void Awake()
@@ -58,7 +53,7 @@ public class SoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxTrackIndex = TrackList.Count;
+        maxTrackIndex = TrackList.Count - 1;
 
         //// play the first track in the list
         MusicSource.clip = TrackList[currTrackIndex];
@@ -168,7 +163,16 @@ public class SoundManager : MonoBehaviour
             CarSFXSource.PlayOneShot(carBrakeSFX);
             canTriggerBrake = false;
         }
-        
+    }
+
+    public void PlayCarSkid()
+    {
+        if (CarSFXSource.clip == carSkidSFX && CarSFXSource.isPlaying)
+        {
+            return;
+        }
+
+        CarSFXSource.PlayOneShot(carSkidSFX);
     }
 
     public void QueueRadio()
@@ -200,9 +204,6 @@ public class SoundManager : MonoBehaviour
         {
             flag = true;
         }
-
-        
-
     }
 
     public void PlayTrack()
@@ -211,9 +212,9 @@ public class SoundManager : MonoBehaviour
         {
             currTrackIndex = 0;
         }
-        else if (currTrackIndex <0)
+        else if (currTrackIndex < 0)
         {
-            currTrackIndex = maxTrackIndex-1;
+            currTrackIndex = maxTrackIndex - 1;
         }
         // next track
 

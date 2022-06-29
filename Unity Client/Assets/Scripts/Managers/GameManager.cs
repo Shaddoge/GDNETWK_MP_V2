@@ -90,5 +90,15 @@ public class GameManager : MonoBehaviour
                 tracks[i].SetActive(false);
             }
         }
+
+        ToggleAllTireFX(false);
+    }
+
+    public void ToggleAllTireFX(bool _flag)
+    {
+        foreach(PlayerManager player in players.Values)
+        {
+            player.ToggleTireFXActive(_flag);
+        }
     }
 }

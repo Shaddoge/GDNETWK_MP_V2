@@ -139,7 +139,8 @@ public class ClientHandle : MonoBehaviour
         switch(_idState)
         {
             case 0: ProfileManager.instance.TimerStarted();
-                    UIManager.instance.StartTimerStarted(); break;
+                    UIManager.instance.StartTimerStarted();
+                    GameManager.instance.ToggleAllTireFX(true); break;
             case 1: UIManager.instance.EndTimerStarted(); break; // Display Timer
             case 2: UIManager.instance.NewTrack(); break; // Reset Lobby
         }

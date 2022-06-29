@@ -6,6 +6,7 @@ public class Checkpoint : MonoBehaviour
 {
     public int id;
     public Checkpoint nextTarget;
+    private Coroutine waitCountdown;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -25,14 +26,27 @@ public class Checkpoint : MonoBehaviour
             else
             {
                 Player player = other.GetComponent<Player>();
-                if(player.isFinished) return;
+                if (player.isFinished) return;
 
                 CheckpointHandler.instance.numFinished++;
-                if (CheckpointHandler.instance.numFinished == 1)
-                {
-                    StartCoroutine(GameManager.instance.FinishCountdown());
-                }
                 player.canMove = false;
+
+                if(CheckpointHandler.instance.numFinished >= Server.GetNumPlayers())
+                {
+                    StartCoroutine(GameManager.instance.AllFinished());
+
+                    // Cancel wait countdown if everyone is finished.
+                    if (waitCountdown != null)
+                    {
+                        StopCoroutine(waitCountdown);
+                        waitCountdown = null;
+                    }
+                }
+                else if (CheckpointHandler.instance.numFinished == 1 && waitCountdown == null)
+                {
+                    waitCountdown = StartCoroutine(GameManager.instance.FinishCountdown());
+                }
+                
                 ServerSend.PlayerFinished(player.id, CheckpointHandler.instance.numFinished, GameManager.instance.trackTime);
             }
         }
