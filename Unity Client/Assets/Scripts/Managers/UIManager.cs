@@ -108,6 +108,7 @@ public class UIManager : MonoBehaviour
         {
             case 1: _displayPlace += "st"; break;
             case 2: _displayPlace += "nd"; break;
+            case 3: _displayPlace += "rd"; break;
             default: _displayPlace += "th"; break;
         }
 
