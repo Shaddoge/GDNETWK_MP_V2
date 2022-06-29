@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
             if (Server.clients[i].tcp.socket != null)
             {
                 if (!Server.clients[i].player.isFinished)
-                    ServerSend.PlayerDNF(i);
+                    ServerSend.PlayerDNF(Server.clients[i].player.id);
             }
         }
     }
