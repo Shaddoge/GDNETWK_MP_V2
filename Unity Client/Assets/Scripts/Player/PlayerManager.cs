@@ -76,7 +76,6 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator LerpToNewPosition(Vector3 _newPosition)
     {
-        float oldTime = Time.time;
         float currTime = 0f;
         Vector3 oldPos = transform.position;
 
