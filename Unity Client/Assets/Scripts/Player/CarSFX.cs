@@ -5,7 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class CarSFX : MonoBehaviour
 {
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource oneShotSource;
 
     [Header("Car SFX")]
     [SerializeField] private AudioClip carStartSFX;
@@ -16,21 +17,24 @@ public class CarSFX : MonoBehaviour
     [SerializeField] private AudioClip carIdleSFX;
 
     private bool canTriggerBrake = false;
+    private float idleCounter = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = this.GetComponent<AudioSource>();
+        oneShotSource.PlayOneShot(carStartSFX);
     }
 
     private void Update()
     {
-        if (!audioSource.isPlaying)
+        idleCounter += Time.deltaTime;
+
+        if (idleCounter > 0.1f)
         {
-            Debug.Log("Append Track");
-            audioSource.clip = carIdleSFX; // transition to idle sfx 
-            audioSource.loop = true;
-            audioSource.Play();
+            if(!audioSource.isPlaying)
+                oneShotSource.PlayOneShot(carIdleSFX, Random.Range(0.5f, 1f));
+
+            idleCounter = 0f;
         }
     }
 
@@ -41,8 +45,6 @@ public class CarSFX : MonoBehaviour
 
     public void Stop()
     {
-        if (audioSource.clip == carIdleSFX || audioSource.clip == carStartSFX) return;
-
         audioSource.Stop();
     }
 
@@ -73,20 +75,6 @@ public class CarSFX : MonoBehaviour
         }
     }
 
-    public void PlayCarIdle()
-    {
-        if (audioSource.clip == carIdleSFX && audioSource.isPlaying)
-        {
-            return;
-        }
-
-        audioSource.Stop();
-        Debug.Log("play Idle");
-        audioSource.clip = carIdleSFX;
-        audioSource.Play();
-        canTriggerBrake = true;
-    }
-
     public void PlayCarBrake()
     {
         if (audioSource.clip == carBrakeSFX && audioSource.isPlaying)
@@ -105,11 +93,6 @@ public class CarSFX : MonoBehaviour
 
     public void PlayCarSkid()
     {
-        if (audioSource.clip == carSkidSFX && audioSource.isPlaying)
-        {
-            return;
-        }
-
-        audioSource.PlayOneShot(carSkidSFX);
+        oneShotSource.PlayOneShot(carSkidSFX);
     }
 }
