@@ -12,7 +12,7 @@ public class StartGameTimer : MonoBehaviour
 
     [SerializeField] private Text countdownText;
     [SerializeField] private Image countdownProgressBar;
-    [SerializeField] private GameObject TimerUI;
+    [SerializeField] private GameObject timerUI;
 
     void Start()
     {
@@ -39,7 +39,9 @@ public class StartGameTimer : MonoBehaviour
             {
                 currentTime = startingTime;
                 startTime = false;
+                timerUI.SetActive(false);
                 this.gameObject.SetActive(false);
+                SoundManager.instance.inCountDownCarSFX = false;
             }
 
             float time = currentTime / startingTime;
@@ -50,7 +52,8 @@ public class StartGameTimer : MonoBehaviour
 
     public void StartTimer()
     {
-        TimerUI.SetActive(true);
+        currentTime = startingTime;
+        timerUI.SetActive(true);
         startTime = true;
     }
 }

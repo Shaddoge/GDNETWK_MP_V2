@@ -16,6 +16,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject localPlayerPrefab;
     [SerializeField] private GameObject playerPrefab;
 
+    [Header("Skybox")]
+    [SerializeField] private Light dirLight;
+    [SerializeField] private Material daySkybox;
+    [SerializeField] private Material nightSkybox;
+
     private void Awake()
     {
         if (instance == null)
@@ -63,6 +68,17 @@ public class GameManager : MonoBehaviour
     public void ChangeTrack(int _trackId)
     {
         Debug.Log($"Track change! {_trackId}");
+        if (_trackId >= 1)
+        {
+            RenderSettings.skybox = nightSkybox;
+            dirLight.color = new Color32(70, 100, 135, 255);
+        }
+        else
+        {
+            RenderSettings.skybox = daySkybox;
+            dirLight.color = new Color32(255, 255, 244, 255);
+        }
+
         for (int i = 0; i < tracks.Length; i++)
         {
             if(i == _trackId)
@@ -73,6 +89,16 @@ public class GameManager : MonoBehaviour
             {
                 tracks[i].SetActive(false);
             }
+        }
+
+        ToggleAllTireFX(false);
+    }
+
+    public void ToggleAllTireFX(bool _flag)
+    {
+        foreach(PlayerManager player in players.Values)
+        {
+            player.ToggleTireFXActive(_flag);
         }
     }
 }

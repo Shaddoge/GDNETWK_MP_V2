@@ -45,7 +45,7 @@ public class Client
             stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
 
             // Send packet
-            ServerSend.Welcome(id, "Welcome to the server!");
+            ServerSend.Welcome(id, "You have successfully joined the server.");
         } 
 
         public void SendData(Packet _packet)
@@ -151,7 +151,7 @@ public class Client
     {
         player = NetworkManager.instance.InstantiatePlayer(id);
         player.Initialize(id, _playerName);
-        Debug.Log(player);
+        Debug.Log($"{_playerName} joined the game.");
         foreach (Client _client in Server.clients.Values)
         {
             // Make sure player is not null
@@ -176,10 +176,14 @@ public class Client
 
         ThreadManager.ExecuteOnMainThread(() =>
         {
-            Debug.Log(player);
             if (player.gameObject)
                 UnityEngine.Object.Destroy(player.gameObject);
             player = null;
+            
+            if(Server.GetNumPlayers() == 0)
+            {
+                GameManager.instance.ResetTrack();
+            }
         });
 
         tcp.Disconnect();

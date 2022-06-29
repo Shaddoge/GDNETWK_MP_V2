@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3689389441435626511}
   - component: {fileID: 3140383583826304447}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Front left collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 51019791046905617}
   - component: {fileID: 7348892582764983169}
   - component: {fileID: 3366805842789107028}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Front left wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 530011632585891933}
   - component: {fileID: 2523421248846383944}
   - component: {fileID: 4932857600010657409}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1194653207759448011}
   - component: {fileID: 7299457987650811843}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Front right collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 2247682838297721138}
   - component: {fileID: 1429840066308176683}
   - component: {fileID: 6571742416217686202}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Front right wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 745358758323986374}
   - component: {fileID: 7278191222714569815}
   - component: {fileID: 5131830260679370346}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Headlights_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 7485920352685714562}
   - component: {fileID: 4590130639452247442}
   - component: {fileID: 8811415926512304616}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spoiler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -542,7 +542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 225042530519996208}
   - component: {fileID: 9137891260257828496}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Front right collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -576,18 +576,18 @@ WheelCollider:
     spring: 135000
     damper: 13500
     targetPosition: 1
-  m_SuspensionDistance: 0.06
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 1
   m_ForwardFriction:
-    m_ExtremumSlip: 0.8
+    m_ExtremumSlip: 0.9
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.375
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -603,7 +603,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5300556891059477343}
   - component: {fileID: 5750202387601096924}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rear right collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -637,18 +637,18 @@ WheelCollider:
     spring: 135000
     damper: 13500
     targetPosition: 1
-  m_SuspensionDistance: 0.06
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 1
   m_ForwardFriction:
-    m_ExtremumSlip: 0.8
+    m_ExtremumSlip: 0.9
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.375
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -663,7 +663,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3170862315888032937}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -704,7 +704,7 @@ GameObject:
   - component: {fileID: 3887145606506896943}
   - component: {fileID: 172215456434675185}
   - component: {fileID: 2370771863790444534}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stop_signals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -785,7 +785,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2531227293550005589}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ferrari F40
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -818,7 +818,7 @@ GameObject:
   - component: {fileID: 2240146819987519655}
   - component: {fileID: 8657988716244518768}
   - component: {fileID: 8634089946345953478}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -899,7 +899,7 @@ GameObject:
   - component: {fileID: 4324152939224861848}
   - component: {fileID: 5810282219492298861}
   - component: {fileID: 9076434016826169017}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rear left wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -981,7 +981,7 @@ GameObject:
   - component: {fileID: 7243586953613124370}
   - component: {fileID: 6945218856176005499}
   - component: {fileID: 110861164526912283}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Headlights_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1063,7 +1063,7 @@ GameObject:
   - component: {fileID: 3384950292031814095}
   - component: {fileID: 8270929268682182090}
   - component: {fileID: 7895345911965342555}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rear right wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1145,7 +1145,7 @@ GameObject:
   - component: {fileID: 395343332586560778}
   - component: {fileID: 1973769848056735327}
   - component: {fileID: 6511088011580361896}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rear view mirrors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1229,7 +1229,7 @@ GameObject:
   - component: {fileID: 3836595880528328157}
   - component: {fileID: 1259307502746749497}
   - component: {fileID: 4440923398745017834}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1268,6 +1268,8 @@ MonoBehaviour:
   username: 
   nextCheckpoint: {fileID: 0}
   placement: 1
+  canMove: 0
+  isFinished: 0
   wheelColliders:
   - {fileID: 4033808454610081487}
   - {fileID: 9137891260257828496}
@@ -1331,7 +1333,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2099754237615197249}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wheel Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1368,7 +1370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5762249367407179690}
   - component: {fileID: 8705605003775167148}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rear left collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1402,18 +1404,18 @@ WheelCollider:
     spring: 135000
     damper: 13500
     targetPosition: 1
-  m_SuspensionDistance: 0.06
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 1
   m_ForwardFriction:
-    m_ExtremumSlip: 0.8
+    m_ExtremumSlip: 0.9
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.375
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -1430,7 +1432,7 @@ GameObject:
   - component: {fileID: 3128677371839874592}
   - component: {fileID: 2435411759903126531}
   - component: {fileID: 1903241021815308640}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1511,7 +1513,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9160606071866479402}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wheels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1546,7 +1548,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5514962951067768197}
   - component: {fileID: 4033808454610081487}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Front left collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1580,18 +1582,18 @@ WheelCollider:
     spring: 135000
     damper: 13500
     targetPosition: 1
-  m_SuspensionDistance: 0.06
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 1
   m_ForwardFriction:
-    m_ExtremumSlip: 0.8
+    m_ExtremumSlip: 0.9
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.375
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75

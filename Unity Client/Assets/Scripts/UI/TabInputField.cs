@@ -26,7 +26,11 @@ public class TabInputField : MonoBehaviour
             }
             if (!selected) return;
 
-            nSelected = (nSelected - 1) % inputFields.Length;
+            nSelected--;
+            if (nSelected < 0)
+            {
+                nSelected = inputFields.Length - 1;
+            }
 
             inputFields[nSelected].ActivateInputField();
         }

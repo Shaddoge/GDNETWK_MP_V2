@@ -157,7 +157,11 @@ public class Client : MonoBehaviour
                     using (Packet _packet = new Packet(_packetBytes))
                     {
                         int _packetId = _packet.ReadInt();
-                        packetHandlers[_packetId](_packet);
+                        if (packetHandlers[_packetId] != null)
+                        {
+                            packetHandlers[_packetId](_packet);
+                        }
+                        
                     }
                 });
 
@@ -197,13 +201,11 @@ public class Client : MonoBehaviour
         {
             { (int)ServerPackets.welcome, ClientHandle.Welcome },
             { (int)ServerPackets.spawnPlayer, ClientHandle.SpawnPlayer },
-            { (int)ServerPackets.playerPosition, ClientHandle.PlayerPosition },
-            { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation },
-            { (int)ServerPackets.playerWheels, ClientHandle.PlayerWheels },
+            { (int)ServerPackets.playerMovement, ClientHandle.PlayerMovement },
             { (int)ServerPackets.playerDisconnected, ClientHandle.PlayerDisconnected },
             { (int)ServerPackets.positionChanged, ClientHandle.PositionChanged},
             { (int)ServerPackets.playerFinished, ClientHandle.PlayerFinished},
-            { (int)ServerPackets.playerState, ClientHandle.PlayerState },
+            { (int)ServerPackets.playerDNF, ClientHandle.PlayerDNF },
             { (int)ServerPackets.playerChat, ClientHandle.PlayerChat },
             { (int)ServerPackets.playerReady, ClientHandle.PlayerReady },
             { (int)ServerPackets.gameState, ClientHandle.GameState },

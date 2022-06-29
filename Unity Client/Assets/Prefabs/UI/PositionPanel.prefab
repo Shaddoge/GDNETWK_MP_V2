@@ -224,3 +224,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: {fileID: 7707918024272092292}
+  playerPosPrefab: {fileID: 0}

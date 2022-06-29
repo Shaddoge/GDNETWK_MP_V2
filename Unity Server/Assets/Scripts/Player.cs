@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     private float currentBreakForce = 0f;
     private float currentSteerAngle = 0f;
     
+    private Vector3 oldPos;
+
     // Motor force
     private const float motorForce = 2000f;
     private const float breakForce = 4000f;
@@ -36,9 +38,20 @@ public class Player : MonoBehaviour
         this.id = _id;
         this.username = _username;
 
+        this.placement = 1;
+        this.isFinished = false;
         this.isReady = false;
         this.inputs = new bool[5];
-        this.nextCheckpoint = CheckpointHandler.GetFirstCheckpoint();
+        this.nextCheckpoint = CheckpointHandler.instance.GetFirstCheckpoint();
+        this.oldPos = transform.position;
+    }
+
+    public void ResetValues()
+    {
+        this.placement = 1;
+        this.isFinished = false;
+        this.isReady = false;
+        this.nextCheckpoint = CheckpointHandler.instance.GetFirstCheckpoint();
     }
 
     public void FixedUpdate()
@@ -71,10 +84,12 @@ public class Player : MonoBehaviour
         HandleMotor(_inputDirection.y);
         UpdateWheels();
 
-        ServerSend.PlayerRotation(this);
-        ServerSend.PlayerPosition(this);
-        ServerSend.PlayerWheels(this);
-        ServerSend.PlayerState(this);
+        /*if(Vector3.Distance(oldPos, this.transform.position) >= 0.001f)
+        {
+            ServerSend.PlayerMovement(this);
+        }*/
+        ServerSend.PlayerMovement(this);
+        oldPos = this.transform.position;
     }
 
     private void HandleMotor(float _direction)
@@ -120,8 +135,15 @@ public class Player : MonoBehaviour
 
     public void SetInput(bool[] _inputs)
     {
-        if (!this.canMove) return;
-        this.inputs = _inputs;
+        if (!this.canMove)
+        {
+            for (int i = 0; i < inputs.Length; i++)
+            {
+                inputs[i] = (i == 4) ? true : false;
+            }
+            return;
+        }
+            this.inputs = _inputs;
     }
 
     public void SetReady(bool isReady)
