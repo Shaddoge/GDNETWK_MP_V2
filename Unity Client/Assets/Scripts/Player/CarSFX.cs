@@ -32,7 +32,7 @@ public class CarSFX : MonoBehaviour
         if (idleCounter > 0.1f)
         {
             if(!audioSource.isPlaying)
-                oneShotSource.PlayOneShot(carIdleSFX, Random.Range(0.5f, 1f));
+                oneShotSource.PlayOneShot(carIdleSFX, Random.Range(0.1f, 0.5f));
 
             idleCounter = 0f;
         }
