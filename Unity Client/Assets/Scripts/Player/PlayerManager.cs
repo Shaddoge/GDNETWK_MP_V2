@@ -68,6 +68,7 @@ public class PlayerManager : MonoBehaviour
         //transform.rotation = _newRotation;
         if (tireFXActive)
         {
+            float angleDiff = Quaternion.Angle(transform.rotation, _newRotation);
             if (angleDiff > 0.9f)
             {
                 isSkidding = true;
@@ -110,8 +111,6 @@ public class PlayerManager : MonoBehaviour
     {
         float currTime = 0f;
         Quaternion oldRot = transform.rotation;
-
-        float angleDiff = Quaternion.Angle(oldRot, _newRotation);
 
         while(currTime < Time.fixedDeltaTime)
         {
