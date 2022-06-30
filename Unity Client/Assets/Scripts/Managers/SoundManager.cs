@@ -94,21 +94,27 @@ public class SoundManager : MonoBehaviour
 
     private void CheckRadioInput()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && flag == true)
+        /* KEY MAPPING
+           Volume - "-" , "="
+           Change - "[" "]"
+           Mute = '\'
+        */
+
+        if (Input.GetKeyDown(KeyCode.LeftBracket) && flag == true)
         {
             currTrackIndex--;
             flag = false;
             MusicSource.clip = radioSFX;
             MusicSource.Play();
         }
-        else if (Input.GetKeyDown(KeyCode.E) && flag == true)
+        else if (Input.GetKeyDown(KeyCode.RightBracket) && flag == true)
         {
             currTrackIndex++;
             flag = false;
             MusicSource.clip = radioSFX;
             MusicSource.Play();
         }
-        else if (Input.GetKeyDown(KeyCode.M) && flag == true)
+        else if (Input.GetKeyDown(KeyCode.Backslash) && flag == true)
         {
             flag = false;
             MusicSource.mute = !MusicSource.mute;
@@ -121,14 +127,14 @@ public class SoundManager : MonoBehaviour
                 Debug.Log("Radio On");
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Comma) && flag == true)
+        else if (Input.GetKeyDown(KeyCode.Minus) && flag == true)
         {
             flag = false;
             float musicVol = MusicSource.volume;
             musicVol -= 0.01f;
             AdjustMusicVolume(musicVol);
         }
-        else if (Input.GetKeyDown(KeyCode.Period) && flag == true)
+        else if (Input.GetKeyDown(KeyCode.Equals) && flag == true)
         {
             flag = false;
             float musicVol = MusicSource.volume;
@@ -136,7 +142,7 @@ public class SoundManager : MonoBehaviour
             AdjustMusicVolume(musicVol);
         }
 
-        else if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.M) || Input.GetKeyUp(KeyCode.Comma) || Input.GetKeyUp(KeyCode.Period))
+        else if (Input.GetKeyUp(KeyCode.LeftBracket) || Input.GetKeyUp(KeyCode.RightBracket) || Input.GetKeyUp(KeyCode.Backslash) || Input.GetKeyUp(KeyCode.Minus) || Input.GetKeyUp(KeyCode.Equals))
         {
             flag = true;
         }
